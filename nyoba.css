@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+  
+  .chat-bubble {
+    max-width: 300px;
+    background-color: #0088cc;
+    color: #fff;
+    padding: 10px;
+    border-radius: 15px;
+    position: fixed;
+    bottom: 20px; /* Sesuaikan dengan jarak dari bawah */
+    right: 20px; /* Sesuaikan dengan jarak dari kanan */
+  }
+  
+  .chat-bubble::before {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 10px 15px 10px 0;
+    border-color: transparent #0088cc;
+    top: 50%;
+    left: -15px;
+    transform: translateY(-50%);
+  }
+  
