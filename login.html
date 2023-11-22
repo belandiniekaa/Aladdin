@@ -131,8 +131,28 @@
                 left: 0;
             }
         }
-
     </style>    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var form = document.querySelector('form');
+  
+            form.addEventListener('submit', function(event) {
+                var username = document.querySelector('.kotakinput[type="text"]').value;
+                var password = document.querySelector('.kotakinput[type="password"]').value;
+  
+                if (username === '' && password === '') {
+                    alert('Username dan Password harus diisi!');
+                    event.preventDefault();
+                } else if (username === '') {
+                    alert('Username harus diisi!');
+                    event.preventDefault();
+                } else if (password === '') {
+                    alert('Password harus diisi!');
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
     <title>Login</title>
 </head>
 <body>

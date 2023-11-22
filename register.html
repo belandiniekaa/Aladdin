@@ -130,6 +130,42 @@
             }
         }
     </style>    
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var form = document.querySelector('form');
+      
+                form.addEventListener('submit', function(event) {
+                    var username = document.querySelector('.kotakinput[type="text"]').value;
+                    var password = document.querySelector('.kotakinput[type="password"]').value;
+      
+                    if (username === '' && password === '') {
+                        alert('Username dan Password harus diisi!');
+                        event.preventDefault();
+                    } else if (username === '') {
+                        alert('Username harus diisi!');
+                        event.preventDefault();
+                    } else if (password === '') {
+                        alert('Password harus diisi!');
+                        event.preventDefault();
+                    }
+                });
+            });
+        </script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var form = document.querySelector('form');
+        
+                    form.addEventListener('submit', function(event) {
+                        var password = document.querySelector('.kotakinput[type="password"]').value;
+                        var confirmPassword = document.querySelectorAll('.kotakinput[type="password"]')[1].value;
+        
+                        if (password !== confirmPassword) {
+                            alert('Password dan Confirm Password haruslah sama!');
+                            event.preventDefault();
+                        }
+                    });
+                });
+            </script>
     <title>Register</title>
 </head>
 <body>
