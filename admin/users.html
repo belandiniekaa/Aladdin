@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Alata&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="editpilihan.css">
+    <style>
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-align: center;
+            width: 100%;
+            height: 70px;
+            background-color: #0c133f;
+        }
+
+        .isinavbar {
+            color: white;
+            display: flex;
+            padding: 0px 15px 0px 15px;
+        }
+
+        a {
+            color: white;
+            font-weight: 900;
+            font-size: 25px;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #f4a763;
+        }
+
+        .disini {
+            color: #f4a763;
+        }
+
+        @media only screen and (max-width: 900px) {
+            .navbar, a, a:hover, .disini {
+                width: 100%;
+            }
+        }
+
+        body {
+            background-color: #0c133f;
+            background-image: url('/img/Untitled50_20231114055535.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            font-family: alata;
+        }
+
+        .table {
+            margin-top: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 70px, 60px, 70px, 60px;
+            text-align: center;
+            font-size: 20px;
+            color: #0c133f;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .th {
+            background-color: #f4a763;
+            font-size: 26px;
+        }
+
+        .td {
+            border-bottom: 2px solid #3e3092;
+            font-size: 21px;
+            background-color: #f2cc81;
+            color: #3e3092;
+        }
+
+        .no {
+            width: 150px;
+        }
+
+        .username {
+            width: 300px;
+            text-align: left;
+        }
+
+        .role {
+            width: 300px;
+        }
+
+        .ubah {
+            width: 150px;
+        }
+
+        .judulnya {
+            height: 50px;
+        }
+
+        .edit {
+            width: 30px;
+        }
+
+        .isi {
+            height: 65px;
+        }
+
+        img {
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #0c133f;
+            color: #f2cc81;
+            border-radius: 10%;
+            padding: 5px 15px 5px 15px;
+            margin: 20px 15px 20px 15px;
+        }
+
+        .popup {
+            font-size: 17px;
+            width: 427px;
+            height: 240px;
+            background-color: #f2cc81;
+            border: #0c133f 3px solid;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+
+        .td1 {
+            padding: 5px 10px 5px 10px;
+        }
+
+        input {
+            text-decoration: none;
+            border: white;
+            height: 20px;
+            width: 270px;
+        }
+
+        .judul {
+            background-color: #f4a763;
+            font-size: 20px;
+            font-weight: 600;
+            border-bottom: #0c133f 3px solid;
+            padding: 0px 10px 0px 10px;
+            width: 407px;
+        }
+
+        .close-btn {
+            cursor: pointer;
+            font-size: 20px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .tambah{
+            text-align: center;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+        }
+    </style>
+    <title>Users</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="isinavbar">
+            <a href="berandaadmin.html">Home</a>
+        </div>
+        <div class="isinavbar">
+            <a href="storyadmin.html">Story</a>
+        </div>
+        <div class="isinavbar">
+            <a class="disini">Users</a>
+        </div>
+        <div class="isinavbar">
+            <a href="pilihanadmin.html">Wishes</a>
+        </div>
+        <div class="isinavbar">
+            <a href="aboutusadmin.html">About Us</a>
+        </div>
+    </div>
+    <div onclick="tambahPopup()" class="tambah">
+        <br>Add Users
+    </div>
+    <table border="0" class="table">
+        <tr>
+            <th class="th no judulnya">No</th>
+            <th class="th username judulnya">Username</th>
+            <th class="th role judulnya">Role</th>
+            <th colspan="2" class="th ubah judulnya"></th>
+        </tr>
+        <tr>
+            <td class="td no isi">1</td>
+            <td class="td username isi">ebel</td>
+            <td class="td role isi">Admin</td>
+            <td class="td"><img src="/img/edit (1).png" alt="" class="edit" onclick="editPopup()"></td>
+            <td class="td"><img src="/img/trash (1).png" alt="" class="edit"></td>
+        </tr>
+    </table>
+    <div id="popup" class="popup" style="display: none;">
+        <form action="" id="formPopup">
+            <div class="judul">
+                Edit User
+            </div>
+            <div class="isi">
+                <table border="0">
+                    <tr>
+                        <td class="td1" id="popupID" hidden></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">Username</td>
+                        <td class="td1" id="username"><input type="text" name="" id=""></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">Role</td>
+                        <td class="td1" id="role"><input type="text"></td>
+                    </tr>
+                </table>
+                <button type="submit">Save</button>
+                <button type="button" onclick="closePopup()">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <div id="popup1" class="popup" style="display: none;">
+        <form action="" id="formPopup1">
+            <div class="judul">
+                Add User
+            </div>
+            <div class="isi">
+                <table border="0">
+                    <tr>
+                        <td class="td1" id="popupContent1">Username</td>
+                        <td class="td1" id="username"><input type="text" name="" id=""></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">Role</td>
+                        <td class="td1" id="role"><input type="text"></td>
+                    </tr>
+                </table>
+                <button type="submit">Save</button>
+                <button type="button" onclick="closePopup1()">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function editPopup(id) {
+            document.getElementById('popupID').innerText = id;
+            document.getElementById('popup').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
+    <script>
+        function tambahPopup() {
+            document.getElementById('popup1').style.display = 'flex';
+        }
+
+        function closePopup1() {
+            document.getElementById('popup1').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
