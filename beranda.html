@@ -47,7 +47,7 @@
 
         body{
             background-color: #0c133f;
-            background-image: url('img/Untitled50_20231114055535.png');
+            background-image: url('/img/Untitled50_20231114055535.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -59,8 +59,11 @@
         }
 
         .beranda{
-            display: flex;
-            align-items: center;
+            height: 550px;
+            background-image: url('/img/Picsart_23-11-22_15-34-41-816.png');
+            background-position-x: center;
+            background-size: 60%;
+            background-repeat: no-repeat; 
             justify-content: center;
         }
 
@@ -69,13 +72,13 @@
         }
 
         .join{
-            padding: 8px 25px 8px 25px;
+            width: 70px;
+            height: 40px;
+            text-align: center;
             justify-content: center;
             background-color: #f2cc81;
             border-radius: 20px;
             margin-top: 25px;
-            position: relative;
-            right: 50%;
             color: black;
             font-family: alata;
             font-size: 27px;
@@ -85,13 +88,20 @@
         .join:hover{
             background-color: white;
         }
+        p{
+            font-size: 20px;
+            color: white;
+        }
+        .text{
+            padding: 135px 0px 0px 350px ;
+        }
     </style>
     <title>Beranda</title>
 </head>
 <body>
     <div class="navbar">
         <div class="isinavbar">
-            <a href="beranda.html" class="disini">Home</a>
+            <a class="disini">Home</a>
         </div>
         <div class="isinavbar">
             <a href="story.html">Story</a>
@@ -99,14 +109,15 @@
         <div class="isinavbar">
             <a href="aboutus.html">About Us</a>
         </div>
-        <div class="isinavbar">
-            <a href="profile.html">Profile</a>
-        </div>
     </div>
     <div class="beranda">
-        <img src="img/hello.png" alt="">
-        <div class="join">
-            <a href="login.html">Join</a>
+        <div class="text">
+            <p>
+                Embark on a magical <br> journey and discover <br> a whole new world! <br> Ready to join my adventure?
+            </p>
+            <div class="join">
+                <a href="login.html">Join</a>
+            </div>
         </div>
     </div>
 </body>
