@@ -107,6 +107,11 @@
             font-family: aladin;
             text-align: center;
         }
+        .judul{
+            font-family: aladin;
+            text-align: center;
+            font-size: 35px;
+        }
 
         p{
             text-align: center;
@@ -118,11 +123,25 @@
             }
         }
     </style>
-    <script>
-        function flipkotakpilihan1(kotakpilihan1) {
-            kotakpilihan1.classList.toggle('flipped');
+<script>
+    let selectedKotakpilihan1 = null;
+
+    function flipkotakpilihan1(kotakpilihan1) {
+        if (selectedKotakpilihan1 === null) {
+            if (!kotakpilihan1.classList.contains('flipped')) {
+                kotakpilihan1.classList.add('flipped');
+
+                selectedKotakpilihan1 = kotakpilihan1;
+
+                setTimeout(function(){
+                    window.location.href = 'finish.html';
+                }, 5000);
+            }
         }
-    </script>
+    }
+</script>
+    
+    
     <title>Pilihan</title>
 </head>
 <body>
@@ -139,7 +158,7 @@
     </div>
     <div>
         <br>
-        <h1>Choose your second wish!</h1>
+        <h1 class="judul">Choose your last wish!</h1>
     </div>
     <div>
         <table>
@@ -152,14 +171,50 @@
                         <img src="/img/aladdin.jpg" alt="">
                     </div>
                 </div></td>
-                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)"><h1>Wealth</h1></div></td>
-                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)"><h1>Longetivity</h1></div></td>
+                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
+                    <div class="depan">
+                        <h1>Power</h1>
+                    </div>
+                    <div class="belakang">
+                        <img src="/img/aladdin.jpg" alt="">
+                    </div>
+                </div></td>
+                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
+                    <div class="depan">
+                        <h1>Power</h1>
+                    </div>
+                    <div class="belakang">
+                        <img src="/img/aladdin.jpg" alt="">
+                    </div>
+                </div></td>
             </tr>
             <tr>
-                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)"><h1>Happiness</h1></div></td>
-                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)"><h1>Life Partner</h1></div></td>
-                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)"><h1>Family</h1></div></td>
+                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
+                    <div class="depan">
+                        <h1>Power</h1>
+                    </div>
+                    <div class="belakang">
+                        <img src="/img/aladdin.jpg" alt="">
+                    </div>
+                </div></td>
+                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
+                    <div class="depan">
+                        <h1>Power</h1>
+                    </div>
+                    <div class="belakang">
+                        <img src="/img/aladdin.jpg" alt="">
+                    </div>
+                </div></td>
+                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
+                    <div class="depan">
+                        <h1>Power</h1>
+                    </div>
+                    <div class="belakang">
+                        <img src="/img/aladdin.jpg" alt="">
+                    </div>
+                </div></td>
             </tr>
+            
         </table>
     </div>
 </body>

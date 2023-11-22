@@ -52,78 +52,60 @@
             background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
             margin: 0;
             padding: 0;
             font-family: alata;
         }
 
-        .beranda{
-            height: 550px;
-            background-image: url('/img/Picsart_23-11-22_15-34-41-816.png');
-            background-position-x: center;
-            background-size: 60%;
-            background-repeat: no-repeat; 
-            justify-content: center;
-        }
-
-        img{
-            width: 800px;
-        }
-
-        .join{
-            width: 70px;
-            height: 40px;
-            text-align: center;
-            justify-content: center;
-            background-color: #f2cc81;
-            border-radius: 20px;
-            margin-top: 25px;
-            color: black;
-            font-family: alata;
-            font-size: 27px;
-            font-weight: 700;
-        }
-
-        .join:hover{
-            background-color: white;
-        }
-        p{
-            font-size: 20px;
-            color: white;
-        }
         .text{
-            padding: 135px 0px 0px 350px ;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 70px;
+            padding: 20px;
+            color: white;
+            width: 800px;
+            height: 200px;
+            background-color: #f4a763da;
+            border-radius: 20px;
+            font-size: 20px;
         }
+        img{
+            height: 500px;
+        }
+
     </style>
-    <title>Beranda</title>
+    <title>Finish</title>
 </head>
 <body>
     <div class="navbar">
         <div class="isinavbar">
-            <a class="disini">Home</a>
+            <a href="/beranda.html">Home</a>
         </div>
         <div class="isinavbar">
-            <a href="storyadmin.html">Story</a>
+            <a href="/story.html">Story</a>
         </div>
         <div class="isinavbar">
-            <a href="users.html">Users</a>
-        </div>
-        <div class="isinavbar">
-            <a href="pilihanadmin.html">Wishes</a>
-        </div>
-        <div class="isinavbar">
-            <a href="aboutusadmin.html">About Us</a>
+            <a href="/aboutus.html">About Us</a>
         </div>
     </div>
-    <div class="beranda">
-        <div class="text">
-            <p>
-                Embark on a magical <br> journey and discover <br> a whole new world! <br> Ready to join my adventure?
-            </p>
-            <div class="join">
-                <a href="/login.html">Join</a>
-            </div>
-        </div>
+    <div class="text">
+        Thank you for following the story, I hope you liked the experience!
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var hartaImage = document.getElementById('hartaImage');
+
+            hartaImage.addEventListener('click', function() {
+                alert("Cari yang bisa membantu kamu keluar dari gua ini!");
+            });
+        });
+    </script>
+    <br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br>
 </body>
 </html>

@@ -33,7 +33,7 @@
         }
 
         body{
-            background-image: url('/img/Empty-Backdrop-from-Aladdin-disney-crossover-29212922-1099-648.jpg');
+            background-image: url('/img/luargua.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -46,31 +46,62 @@
             font-family: alata;
         }
 
-        .text{
-            margin-top: 70px;
-            padding: 20px;
-            color: white;
-            width: 800px;
-            height: 200px;
-            background-color: #f4a763da;
-            border-radius: 20px;
-            font-size: 20px;
-        }
         img{
-            width: 90px;
+            width: 60%;
         }
         .lampu{
             position: fixed;
-            bottom: 18%;
-            right: 20%;
+            bottom: 10%;
+            right: 0%;
         }
-        .harta{
+
+        .aladin{
             position: fixed;
-            bottom: 28%;
-            left: 5%;
+            bottom: 2%;
+            left: 40%;
+        }
+
+        .lampu1{
+            position: fixed;
+            bottom: 52%;
+            right: 3%;
+        }
+
+        .aladin1{
+            position: fixed;
+            bottom: 48%;
+            left: 45%;
+        }
+        
+        span{
+            color: #0c133f;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .text1{
+            position: fixed;
+            bottom: 74%;
+            right: 24%;
+            text-align: justify;
+        }
+
+        a{
+            color: #1b2da2;
+            text-decoration: none;
+        }
+
+        .text2{
+            position: fixed;
+            bottom: 71%;
+            left: 51%;
         }
     </style>
-    <title>Cari Lampu</title>
+    <script>
+        setTimeout(function(){
+            window.location.href = 'permintaan2.html';
+        }, 5000);
+    </script>
+    <title>Permintaan 1-1</title>
 </head>
 <body>
     <div class="navbar">
@@ -84,22 +115,15 @@
             <h3>About Us</h3>
         </div>
     </div>
-    <div class="text">
-        In the center of the golden cave, Aladdin finds himself surrounded by the enchanting light of the treasure. The air was filled with impatience as he searched for a way out of the dazzling maze of wealth. Each step echoed in the cave and the shimmering walls seemed to hide unspeakable secrets. As Aladdin travels through the golden maze, he comes across an ancient treasure that hints at the path to freedom. Find images you can click to reveal the secrets that lead freedom.
+    <div>
+        <span class="aladin"><img src="/img/Group 11.png" alt=""></span>
+        <span class="aladin1"><img src="/img/Group 2.png" alt="">
+            <span class="text2">Wow, this has come true, <br> thank you Gennie. <br> What's next?</span>
+        </span>
+        <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
     </div>
-    <div class="lampu">
-        <a href="permintaan1.html"><img src="/img/lampu-removebg-preview.png" alt=""></a> 
-    </div>
-    <img src="/img/harta-removebg-preview.png" alt="" class="harta" id="hartaImage">
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var hartaImage = document.getElementById('hartaImage');
-
-            hartaImage.addEventListener('click', function() {
-                alert("Cari yang bisa membantu kamu keluar dari gua ini!");
-            });
-        });
-    </script>
-    <br><br><br><br><br><br><br><br>
 </body>
 </html>
