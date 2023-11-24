@@ -1,3 +1,8 @@
+<?php
+include "../config/koneksi.php";
+include "../php/function.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Alata&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="editpilihan.css">
     <style>
-        .navbar{
+        .navbar {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -18,36 +23,36 @@
             background-color: #0c133f;
         }
 
-        .isinavbar{
+        .isinavbar {
             color: white;
             display: flex;
             padding: 0px 15px 0px 15px;
         }
 
-        a{
+        a {
             color: white;
             font-weight: 900;
             font-size: 25px;
             text-decoration: none;
         }
 
-        a:hover{
+        a:hover {
             color: #f4a763;
         }
 
-        .disini{
+        .disini {
             color: #f4a763;
         }
 
-        @media only screen and (max-width: 900px){
-            .navbar, a, a:hover, .disini{
-                width:100%;
+        @media only screen and (max-width: 900px) {
+            .navbar, a, a:hover, .disini {
+                width: 100%;
             }
         }
 
-        body{
+        body {
             background-color: #0c133f;
-            background-image: url('/img/Untitled50_20231114055535.png');
+            background-image: url('../img/Untitled50_20231114055535.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -58,66 +63,57 @@
             font-family: alata;
         }
 
-        img{
-            cursor: pointer;
-        }
-
-        .table{
+        .table {
             margin-top: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 70px, 60px, 70px, 60px;
+            margin: 70px 60px 70px 60px;
             text-align: center;
             font-size: 20px;
             color: #0c133f;
             border-collapse: collapse;
             border-spacing: 0;
         }
-        
-        .gambar{
-            width: 180px;
-            height: 100px;
-            border-radius: 20px;
-            padding: 10px;
-        }
 
-        .th{
+        .th {
             background-color: #f4a763;
             font-size: 26px;
         }
-        
-        .td{
+
+        .td {
             border-bottom: 2px solid #3e3092;
             font-size: 21px;
             background-color: #f2cc81;
             color: #3e3092;
         }
 
-        .id{
+        .no {
             width: 150px;
         }
 
-        .untukgambar{
+        .username {
             width: 300px;
+            text-align: left;
         }
-        .name{
+
+        .role {
             width: 300px;
         }
 
-        .ubah{
+        .ubah {
             width: 150px;
         }
 
-        .judulpilihan{
+        .judulnya {
             height: 50px;
         }
 
-        .editpilihan{
+        .edit {
             width: 30px;
         }
 
-        .isi{
+        .isi {
             height: 65px;
         }
 
@@ -181,7 +177,7 @@
             font-weight: 600;
         }
     </style>
-    <title>Wishes</title>
+    <title>Users</title>
 </head>
 <body>
     <div class="navbar">
@@ -192,85 +188,113 @@
             <a href="storyadmin.html">Story</a>
         </div>
         <div class="isinavbar">
-            <a href="users.html">Users</a>
+            <a class="disini">Users</a>
         </div>
         <div class="isinavbar">
-            <a class="disini">Wishes</a>
+            <a href="pilihanadmin.html">Wishes</a>
         </div>
         <div class="isinavbar">
             <a href="aboutusadmin.html">About Us</a>
         </div>
     </div>
+<?php
+deleteUser($conn);
+?>
     <div onclick="tambahPopup()" class="tambah">
-        <br>Add Wishes</div>
+        <br>Add Users
+    </div>
     <table border="0" class="table">
         <tr>
-            <th class="th id judulpilihan">ID</th>
-            <th class="th untukgambar judulpilihan"></th>
-            <th class="th name judulpilihan">Name</th>
-            <th colspan="2" class="th ubah judulpilihan"></th>
+            <th class="th no judulnya">No</th>
+            <th class="th username judulnya">Username</th>
+            <th class="th role judulnya">Role</th>
+            <th colspan="2" class="th ubah judulnya"></th>
         </tr>
-        <tr>
-            <td class="td id isi">1111</td>
-            <td class="td untukgambar isi"><img src="/img/quickspin-jobs-freespin-bg.jpg" alt="" class="gambar"></td>
-            <td class="td name isi">Power</td>
-            <td class="td"><img src="/img/edit (1).png" alt="" class="editpilihan" onclick="editPopup('1111')"></td>
-            <td class="td"><a href="hapuspilihan.html"><img src="/img/trash (1).png" alt="" class="editpilihan"></a></td>
-        </tr>
-        <tr>
-            <td class="td id isi">1234</td>
-            <td class="td untukgambar isi"><img src="/img/harta-removebg-preview.png" alt="" class="gambar"></td>
-            <td class="td name isi">Wealth</td>
-            <td class="td"><img src="/img/edit (1).png" alt="" class="editpilihan" onclick="editPopup('1234')"></td>
-            <td class="td"><a href="hapuspilihan.html"><img src="/img/trash (1).png" alt="" class="editpilihan"></a></td>
-        </tr>
+
+        <?php
+        viewUser($conn);
+        ?>
     </table>
+
+    <!-- UPDATE -->
+    <?php
+    $userUpdate=isset($_GET['password'])?$_GET['password']:'';
+    if(isset($_POST['update'])){
+        $username=$_POST['username'];
+        $role=$_POST['role'];
+
+        $result=mysqli_query($conn, "update users set username='$username', role='$role' where password='$userUpdate'");
+        if($result){
+            echo "<script>alert('User has been successfully updated.')</script>";
+            echo "<script>location.reload();</script>";
+            
+            exit();
+        }
+
+    }
+    $row=mysqli_fetch_array(mysqli_query($conn, "select * from users where password='$userUpdate' 
+    "));
+    
+    if($row!=null && $row['password']!=""){
+        ?>
     <div id="popup" class="popup" style="display: none;">
-        <form action="" id="formPopup">
+        <form name="edit" action="<?php $_SERVER['PHP_SELF'];?>" method="post" id="formPopup">
             <div class="judul">
-                Edit Wishes
+                Edit User
             </div>
             <div class="isi">
                 <table border="0">
                     <tr>
-                        <td class="td1"  id="popupID">ID</td>
-                        <td class="td1"></td>
+                        <td class="td1" id="popupID" hidden></td>
                     </tr>
                     <tr>
-                        <td class="td1">Picture</td>
-                        <td class="td1" id="picture"><input type="file" name="" id="file"></td>
+                        <td class="td1">Username</td>
+                        <td class="td1" id="username"><input type="text" name="username" id="username"></td>
                     </tr>
                     <tr>
-                        <td class="td1">Name</td>
-                        <td class="td1" id="name"><input type="text"></td>
+                        <td class="td1">Role</td>
+                        <td class="td1" id="role">
+                            <select name="role" id="role">
+                                <option value="User" <?php if($row['role']=='User') echo "selected";?> >User</option>
+                                <option value="Admin" <?php if($row['role']=='Admin') echo "selected";?> >Admin</option>
+                            </select>
+                        </td>
                     </tr>
                 </table>
-                <button type="submit">Save</button>
+                <button name="update" type="submit">Save</button>
                 <button type="button" onclick="closePopup()">Cancel</button>
             </div>
         </form>
     </div>
+    <?php
+            }
+            ?>
     <div id="popup1" class="popup" style="display: none;">
-        <form action="" id="formPopup1">
+        <form action="<?php $_SERVER['PHP_SELF'];?>" method="post" name="add" id="formPopup1">
             <div class="judul">
-                Add Wishes
+                Add User
             </div>
             <div class="isi">
                 <table border="0">
                     <tr>
-                        <td class="td1" id="popupContent1">ID</td>
-                        <td class="td1" id="id"><input type="text" name="" id=""></td>
+                        <td class="td1" id="popupContent1">Username</td>
+                        <td class="td1" id="username"><input type="text" name="username" id="username"></td>
                     </tr>
                     <tr>
-                        <td class="td1">Picture</td>
-                        <td class="td1" id="picture"><input type="file" name="" id="file"></td>
+                        <td class="td1">Password</td>
+                        <td class="td1"><input type="password" name="password" id="password"></td>
                     </tr>
                     <tr>
-                        <td class="td1">Name</td>
-                        <td class="td1" id="name"><input type="text"></td>
+                        <td class="td1">Role</td>
+                        <td class="td1" id="role">
+                            <select name="role" id="role">
+                                <option value="Admin" >Admin</option>
+                                <option value="User" >User</option>
+                            </select>
+                        </td>
                     </tr>
                 </table>
-                <button type="submit">Save</button>
+                <button name="insert" type="submit">Save</button>
                 <button type="button" onclick="closePopup1()">Cancel</button>
             </div>
         </form>
@@ -295,4 +319,5 @@
         }
     </script>
 </body>
+
 </html>

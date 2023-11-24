@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +36,7 @@
         }
 
         body{
-            background-image: url('/img/Empty-Backdrop-from-Aladdin-disney-crossover-29212922-1099-648.jpg');
+            background-image: url('../img/Empty-Backdrop-from-Aladdin-disney-crossover-29212922-1099-648.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -88,9 +91,9 @@
         In the center of the golden cave, Aladdin finds himself surrounded by the enchanting light of the treasure. The air was filled with impatience as he searched for a way out of the dazzling maze of wealth. Each step echoed in the cave and the shimmering walls seemed to hide unspeakable secrets. As Aladdin travels through the golden maze, he comes across an ancient treasure that hints at the path to freedom. Find images you can click to reveal the secrets that lead freedom.
     </div>
     <div class="lampu">
-        <a href="permintaan1.html"><img src="/img/lampu-removebg-preview.png" alt=""></a> 
+        <a href="permintaan1.html"><img src="../img/lampu-removebg-preview.png" alt=""></a> 
     </div>
-    <img src="/img/harta-removebg-preview.png" alt="" class="harta" id="hartaImage">
+    <img src="../img/harta-removebg-preview.png" alt="" class="harta" id="hartaImage">
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var hartaImage = document.getElementById('hartaImage');
