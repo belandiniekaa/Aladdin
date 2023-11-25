@@ -1,5 +1,5 @@
-<?php
-include "../config/koneksi.php";
+<?php 
+include "../koneksi.php";
 ?>
 
 <!DOCTYPE html>
@@ -190,7 +190,7 @@ include "../config/koneksi.php";
 <body>
     <div class="navbar">
         <div class="isinavbar">
-            <a href="berandaadmin.html">Home</a>
+            <a href="berandaadmin.php">Home</a>
         </div>
         <div class="isinavbar">
             <a href="storyadmin.html">Story</a>
@@ -215,6 +215,7 @@ include "../config/koneksi.php";
             <th colspan="2" class="th ubah judulpilihan"></th>
         </tr>
         <?php
+        $row=[];
         $result=mysqli_query($conn, "select * from permintaan");
         
         if(mysqli_num_rows($result)>0){
@@ -225,21 +226,16 @@ include "../config/koneksi.php";
             <td class='td untukgambar isi'><img src='$row[foto]' alt='' class='gambar'></td>
             <td class='td name isi'>$row[nama]</td>
             <td class='td'><img src='../img/edit (1).png' alt='' class='editpilihan' onclick='editPopup('1111')'></td>
-            <td class='td'><a href='hapuspilihan.html'><img src='../img/trash (1).png' alt='' class='editpilihan'></a></td>
+            <td class='td'><a href='pilihanadmin.php'><img src='../img/trash (1).png' alt='' class='editpilihan'></a></td>
         </tr>";
             }
         }
         ?>
-        <tr>
-            <td class="td id isi">1234</td>
-            <td class="td untukgambar isi"><img src="../img/harta-removebg-preview.png" alt="" class="gambar"></td>
-            <td class="td name isi">Wealth</td>
-            <td class="td"><img src="../img/edit (1).png" alt="" class="editpilihan" onclick="editPopup('1234')"></td>
-            <td class="td"><a href="hapuspilihan.html"><img src="../img/trash (1).png" alt="" class="editpilihan"></a></td>
-        </tr>
+        
     </table>
     <!-- UPDATE -->
     <?php
+    $userUpdate=isset($_GET['id'])?$_GET['id']:'';
     if(isset($_POST['update'])){
         $id=$_POST['id'];
         $nama=$_POST['nama'];
@@ -256,18 +252,18 @@ include "../config/koneksi.php";
                 if($query){
                     echo "<script>alert('Wish has been successfully updated.')</script>";
                     echo "<script>location.reload();</script>";
-                    header("location:../admin/pilihanadmin.php");
+                    header("location:pilihanadmin.php");
                     exit();
                 }else{
                     echo "<script>alert('Failed to update wish.')</script>";
                     echo "<script>location.reload();</script>";
-                    header("location:../admin/pilihanadmin.php");
+                    header("location:pilihanadmin.php");
                     exit();
                 }
             }else{
                 echo "<script>alert('Failed to upload image.')</script>";
                 echo "<script>location.reload();</script>";
-                header("location:../admin/pilihanadmin.php");
+                header("location:pilihanadmin.php");
                 exit();
             }
         }else{
@@ -277,19 +273,19 @@ include "../config/koneksi.php";
             if($query){
                 echo "<script>alert('Wish has been successfully updated.')</script>";
                 echo "<script>location.reload();</script>";
-                header("location:../admin/pilihanadmin.php");
+                header("location:pilihanadmin.php");
                 exit();
             }else{
                 echo "<script>alert('Failed to update wish.')</script>";
                 echo "<script>location.reload();</script>";
-                header("location:../admin/pilihanadmin.php");
+                header("location:pilihanadmin.php");
                 exit();
             }
         }
     }
     ?>
     <div id="popup" class="popup" style="display: none;">
-        <form action="" id="formPopup">
+        <form action="pilihanadmin.php" id="formPopup">
             <div class="judul">
                 Edit Wishes
             </div>
@@ -297,18 +293,19 @@ include "../config/koneksi.php";
                 <table border="0">
                     <tr>
                         <td class="td1"  id="popupID">ID</td>
-                        <td class="td1"></td>
+                        <td class="td1"><input name="id" value="<?php echo $row['id'];?>" disabled></td>
                     </tr>
                     <tr>
                         <td class="td1">Picture</td>
-                        <td class="td1" id="picture"><input type="file" name="" id="file"></td>
+                        <td class="td1" id="picture">
+                            <img src="<?php echo "../img/".$row['foto'];?>"><input type="file" name="foto" id="file" accept="image/png, image/jpeg, image/svg+xml"></td>
                     </tr>
                     <tr>
                         <td class="td1">Name</td>
-                        <td class="td1" id="name"><input type="text"></td>
+                        <td class="td1" id="name"><input name="nama" type="text" value="<?php echo $row['nama'];?>"></td>
                     </tr>
                 </table>
-                <button type="submit">Save</button>
+                <input name="update" type="submit">Save
                 <button type="button" onclick="closePopup()">Cancel</button>
             </div>
         </form>

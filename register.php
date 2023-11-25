@@ -1,25 +1,6 @@
 <?php
-include "core/init.php";
+include "koneksi.php";
 
-//validasi register
-if(isset($_POST['regist'])){
-    $username=$_POST['username'];
-    $password=$_POST['password'];
-
-    if(!empty(trim($username)) && !empty(trim($password))){
-        
-        if(cek_usn($username)==0){
-            
-            //masukkan ke db
-            if(register_user($username, $password)) header("location:login.php");
-            else echo "gagal daftar";
-        }else{
-            echo "username sudah ada. tidak bisa daftar";
-        }
-    }else{
-        echo "tidak boleh kosong";
-    }
-}
 ?>
 
 <!DOCTYPE html>

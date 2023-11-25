@@ -1,13 +1,14 @@
 <?php
-require_once "..core/init.php";
-
-if(!isset($_SESSION['user'])){
-    $_SESSION['msg']="anda harus login";
+include "../koneksi.php";
+//include "../functions/pengguna.php";
+/*
+if(!isset($_SESSION['username'])){
+    echo "anda harus login";
     header("location:../login.php");
 }
 
-if(cek_role($_SESSION['user']=='Admin')){
-    
+if(cek_role($_SESSION['username'])=='Admin'){
+  */  
 ?>
 
 <!DOCTYPE html>
@@ -140,6 +141,3 @@ if(cek_role($_SESSION['user']=='Admin')){
 </body>
 </html>
 
-<?php
-    }
-    ?>

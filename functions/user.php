@@ -11,10 +11,11 @@ function register_user($username, $password){
     //enkripsi
     $password=password_hash($password, PASSWORD_DEFAULT);
 
-    $query="insert into users (username, password) values('$username','$password')";
-    if(mysqli_query($conn, $password)){
+    $query="insert into users (username, password, role) values('$username','$password','User')";
+    if(mysqli_query($conn, $query)){
         return true;
     }else{
+        echo "Username sudah terdaftar";
         return false;
     }
 }
@@ -39,9 +40,9 @@ $password=escape($password);
 
 $query="select password from users where username='$username'";
 $result=mysqli_query($conn, $query);
-$hash=mysqli_fecth_assoc($result)['password'];
+$hash=mysqli_fetch_assoc($result)['password'];
 
-if(password_verify($string, $hash)){
+if(password_verify($password, $hash)){
     return true;
     }else{
         return false;
@@ -61,7 +62,7 @@ function cek_role($username){
     $query="select role from users where username='$nama'";
 
     $result=mysqli_query($conn, $query);
-    $result=mysqli_fecth_assoc($result)['role'];
+    $result=mysqli_fetch_assoc($result)['role'];
     
     if($role=='Admin') return true;
     else return false;

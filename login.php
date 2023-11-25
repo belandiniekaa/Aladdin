@@ -1,12 +1,15 @@
 <?php
-require_once "core/init.php";
 
-if(isset($_SESSION['user'])){
+include ("koneksi.php");
+
+//jika user sudah login, arahkan ke beranda
+/*if(isset($_SESSION['user'])){
     header("location:beranda.html");
-
-}
+    exit();
+}*/
+  
 //validasi
-if(isset($_POST['login'])){
+/*if(isset($_POST['login'])){
     $username=$_POST['username'];
     $password=$_POST['password'];
 
@@ -14,16 +17,17 @@ if(isset($_POST['login'])){
         if(cek_usn($username)!=0){   //username gada, gabisa login
             if(cek_data($username, $password)){
                 header("location:games/carilampu.php");
+                exit();
             }else{
-                echo "username atau password salah ";
+                echo "Incorrect username or password.";
             }
         }else{
-            echo "nama blm terdaftar  ";
+            echo "Username not yet registered ";
         }
     }else{
-        echo "data tidak blh kosonh";
+        echo "Field must not be empty.";
     }
-}
+}*/
 ?>
 
 <!DOCTYPE html>

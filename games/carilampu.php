@@ -1,7 +1,5 @@
 <?php
-include "../core/init.php";
-
-if(!isset($_SESSION['user'])) header("location:../login.php");
+//session_start();
 
 ?>
 <!DOCTYPE html>
