@@ -1,5 +1,6 @@
 <?php 
-include "../koneksi.php";
+session_start();
+include "../functions/koneksi.php";
 ?>
 
 <!DOCTYPE html>
@@ -215,7 +216,6 @@ include "../koneksi.php";
             <th colspan="2" class="th ubah judulpilihan"></th>
         </tr>
         <?php
-        $row=[];
         $result=mysqli_query($conn, "select * from permintaan");
         
         if(mysqli_num_rows($result)>0){
@@ -242,10 +242,9 @@ include "../koneksi.php";
 
         if($_FILES['foto']['error']===UPLOAD_ERR_OK){
             $foto=$_FILES['foto']['name'];
-            $upload='../img/';
-            $uploadPath=$upload.$foto;
+            $upload='../img/'.$foto;
 
-            if(move_uploaded_file($_FILES['foto']['tmp_name'], $uploadPath)){
+            if(move_uploaded_file($_FILES['foto']['tmp_name'], $upload)){
                 $update="update permintaan set nama='$nama', foto='$foto' where id='$id'";
                 $query=mysqli_query($conn, $update);
 
@@ -317,37 +316,27 @@ include "../koneksi.php";
         $id=$_POST['id'];
         $nama=$_POST['nama'];
 
-        if($_FILES['foto']['error']===UPLOAD_ERR_OK){
+        if(isset($_FILES['foto']) && $_FILES['foto']['error']===UPLOAD_ERR_OK){
             $foto=$_FILES['foto']['name'];
-            $upload='../img/';
-            $uploadPath=$upload.$foto;
+            $upload=$_FILES['foto']['tmp_name']
 
-            if(move_uploaded_file($_FILES['foto']['tmp_name'], $uploadPath)){
+            if(move_uploaded_file($_FILES['foto']['tmp_name'], $upload)){
                 $insert="insert into permintaan (id, nama, foto) values('$id','$nama','$foto')";
                 $query=mysqli_query($conn, $insert);
 
                 if($query){
                     echo "<script>alert('Wish has been successfully added.')</script>";
-                    echo "<script>location.reload();</script>";
-                    header("location:../admin/pilihanadmin.php");
-                    exit();
                 }else{
                     echo "<script>alert('Failed to add wish.')</script>";
-                    echo "<script>location.reload();</script>";
-                    header("location:../admin/pilihanadmin.php");
-                    exit();
                 }
             }else{
                 echo "<script>alert('Failed to upload image.')</script>";
-                echo "<script>location.reload();</script>";
-                header("location:../admin/pilihanadmin.php");
-                exit();
+                
             }
         }else{
             echo "<script>alert('Failed to upload image.')</script>";
-            echo "<script>location.reload();</script>";
-            header("location:../admin/pilihanadmin.php");
-            exit();
+            
+            
         }
     }
     ?>
@@ -360,7 +349,7 @@ include "../koneksi.php";
                 <table border="0">
                     <tr>
                         <td class="td1" id="popupContent1">ID</td>
-                        <td class="td1" id="id"><input type="text" name="id" id="id"></td>
+                        <td class="td1" id="id"><input type="text" name="id" id="id" placeholder="A1" maxlength=2 pattern="[A-Z][0-9]"></td>
                     </tr>
                     <tr>
                         <td class="td1">Picture</td>
