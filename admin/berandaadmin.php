@@ -1,14 +1,14 @@
 <?php
-include "../koneksi.php";
-//include "../functions/pengguna.php";
-/*
-if(!isset($_SESSION['username'])){
-    echo "anda harus login";
+session_start();
+include "../functions/koneksi.php";
+include "../functions/user.php";
+
+if(!isset($_SESSION['user'])){
     header("location:../login.php");
 }
 
-if(cek_role($_SESSION['username'])=='Admin'){
-  */  
+
+
 ?>
 
 <!DOCTYPE html>
