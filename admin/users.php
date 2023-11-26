@@ -1,7 +1,7 @@
 <?php
-//session_start();
-include "../koneksi.php";
-
+session_start();
+include "../functions/koneksi.php";
+include "../functions/user.php";
 
 ?>
 
@@ -200,11 +200,11 @@ include "../koneksi.php";
         </div>
     </div>
     <?php
-    if(isset($_GET['username'])){
-        $username=$_GET['username'];
-        if($username!=''){
-            $row=mysqli_fetch_array(mysqli_query($conn, "select * from users where username='$username'"));
-            $hapus="delete from users where username='$username'";
+    if(isset($_GET['user_id'])){
+        $user_id=$_GET['user_id'];
+        if($user_id!=''){
+            $row=mysqli_fetch_array(mysqli_query($conn, "select * from users where user_id='$user_id'"));
+            $hapus="delete from users where user_id='$user_id'";
             $query=mysqli_query($conn, $hapus);
             if($query){
                 echo "<script>alert('The user has been successfully deleted.')</script>";
@@ -226,6 +226,7 @@ include "../koneksi.php";
         <?php
         $result=mysqli_query($conn, "select * from users");
         $count=1;
+        
         if(mysqli_num_rows($result)>0){
             while($row=mysqli_fetch_assoc($result)){
                 echo "
@@ -233,7 +234,7 @@ include "../koneksi.php";
             <td class='td no isi'>$count</td>
             <td class='td username isi'>$row[username]</td>
             <td class='td role isi'>$row[role]</td>
-            <td class='td'><img src='../img/edit (1).png' alt='' class='edit' onclick='editPopup()'></td>
+            <td class='td'><img src='../img/edit (1).png' alt='' class='edit' onclick='editPopup($row[user_id])'></td>
             <td class='td'><img src='../img/trash (1).png' alt='' class='edit'></td>
         </tr>";
         $count=$count+1;
@@ -245,12 +246,12 @@ include "../koneksi.php";
 
     <!-- UPDATE -->
     <?php
-    $userUpdate=isset($_GET['password'])?$_GET['password']:'';
+    $userUpdate=isset($_GET['user_id'])?$_GET['user_id']:'';
     if(isset($_POST['update'])){
         $username=$_POST['username'];
         $role=$_POST['role'];
 
-        $result=mysqli_query($conn, "update users set username='$username', role='$role' where password='$userUpdate'");
+        $result=mysqli_query($conn, "update users set username='$username', role='$role' where user_id='$userUpdate'");
         if($result){
             echo "<script>alert('User has been successfully updated.')</script>";
             echo "<script>location.reload();</script>";
@@ -259,10 +260,10 @@ include "../koneksi.php";
         }
 
     }
-    $row=mysqli_fetch_array(mysqli_query($conn, "select * from users where password='$userUpdate' 
+    $row=mysqli_fetch_array(mysqli_query($conn, "select * from users where user_id='$userUpdate' 
     "));
     
-    if($row!=null && $row['password']!=""){
+    if($row!=null && $row['user_id']!=""){
         ?>
     <div id="popup" class="popup" style="display: none;">
         <form name="edit" action="<?php $_SERVER['PHP_SELF'];?>" method="post" id="formPopup">
@@ -307,7 +308,7 @@ include "../koneksi.php";
             $password=$_POST['password'];
             $role=$_POST['role'];
 
-            $result=mysqli_query($conn, "insert into users (username, password, role) values('$username','$password','$role')");
+            $result=mysqli_query($conn, "insert into users (user_id, username, password, role) values('', '$username','$password','$role')");
             if($result){
                 echo "<script>alert('User successfully added.')</script>";
                 echo "<script>location.reload();</script>";
