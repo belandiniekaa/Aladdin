@@ -11,24 +11,23 @@ function register_user($username, $password){
     //enkripsi
     $password=password_hash($password, PASSWORD_DEFAULT);
 
-    $query="insert into users (username, password, role) values('$username','$password','User')";
+    $query="insert into users (username, password) values('$username','$password')";
     if(mysqli_query($conn, $query)){
         return true;
     }else{
-        echo "Username sudah terdaftar";
+        
         return false;
     }
 }
 
+//cek username sudah ada atau belum
 function cek_usn($username){
     global $conn;
     $username=escape($username);
 
     $query="select * from users where username='$username'";
 
-    if($result=mysqli_query($conn, $query)){
-        return mysqli_num_rows($result);
-    }
+    if($result=mysqli_query($conn, $query)) return mysqli_num_rows($result);
 }
 
 //login
@@ -49,22 +48,31 @@ if(password_verify($password, $hash)){
     }
 }
 
-//cegah injection (pangkas kode mysqli_real_escape_string / escape)
+//cegah injection (pangkas kode mysqli_real_escape_string => escape)
 function escape($data){
     global $conn;
     return mysqli_real_escape_string($conn, $data);
 }
 
+//games redirect 
+function redirect_login($username){
+    header("location:../login.php");
+}
 
 //cek role
 function cek_role($username){
     global $conn;
-    $query="select role from users where username='$nama'";
+    $username=escape($username);
+
+    $query="select role from users where username='$username'";
 
     $result=mysqli_query($conn, $query);
-    $result=mysqli_fetch_assoc($result)['role'];
+    $role=mysqli_fetch_assoc($result)['role'];
     
-    if($role=='Admin') return true;
-    else return false;
+    if($role=='Admin'){
+        return true;
+    }else{
+        return false;
+    }
 }
 ?>
