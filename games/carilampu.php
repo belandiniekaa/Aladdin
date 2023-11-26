@@ -1,5 +1,9 @@
 <?php
-//session_start();
+session_start();
+include "../functions/koneksi.php";
+include "../functions/user.php";
+
+//if(!isset($_SESSION['user'])) header("location:../login.php");
 
 ?>
 <!DOCTYPE html>
@@ -92,7 +96,7 @@
         In the center of the golden cave, Aladdin finds himself surrounded by the enchanting light of the treasure. The air was filled with impatience as he searched for a way out of the dazzling maze of wealth. Each step echoed in the cave and the shimmering walls seemed to hide unspeakable secrets. As Aladdin travels through the golden maze, he comes across an ancient treasure that hints at the path to freedom. Find images you can click to reveal the secrets that lead freedom.
     </div>
     <div class="lampu">
-        <a href="permintaan1.html"><img src="../img/lampu-removebg-preview.png" alt=""></a> 
+        <a href="permintaan1.php"><img src="../img/lampu-removebg-preview.png" alt=""></a> 
     </div>
     <img src="../img/harta-removebg-preview.png" alt="" class="harta" id="hartaImage">
     <script>
