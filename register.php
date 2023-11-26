@@ -1,5 +1,40 @@
 <?php
-include "koneksi.php";
+session_start();
+include "functions/koneksi.php";
+include "functions/user.php";
+
+//redirect jika sudah regist
+if(isset($_SESSION['user'])){
+    header("location:login.php");
+}
+
+//validasi
+if(isset($_POST['regist'])){
+    $username=$_POST['username'];
+    $password=$_POST['password'];
+
+    //trim =menghilangkan jarak kosong di awal dan akhir string
+    if(!empty(trim($username)) && !empty(trim($password))){
+        if(cek_usn($username)==0){
+
+        //masukin ke db
+        if(register_user($username, $password)){
+            echo "<script>
+            alert('Account successfully added.');
+            document.location='login.php';
+            </script>";
+            
+        }else{
+            echo "gagal daftar";
+        }
+
+    }else{
+        echo "username sudah ada";
+    }
+}else{
+    echo "gabole kosong";
+}
+}
 
 ?>
 

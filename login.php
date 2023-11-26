@@ -1,33 +1,41 @@
 <?php
+session_start();
 
-include ("koneksi.php");
+include "functions/koneksi.php";
+include "functions/user.php";
 
-//jika user sudah login, arahkan ke beranda
-/*if(isset($_SESSION['user'])){
-    header("location:beranda.html");
-    exit();
-}*/
-  
+
+
 //validasi
-/*if(isset($_POST['login'])){
+if(isset($_POST['login'])){
     $username=$_POST['username'];
     $password=$_POST['password'];
 
+    //trim =menghilangkan jarak kosong di awal dan akhir string
     if(!empty(trim($username)) && !empty(trim($password))){
-        if(cek_usn($username)!=0){   //username gada, gabisa login
-            if(cek_data($username, $password)){
+        if(cek_usn($username)!=0){
+
+        if(cek_data($username, $password)){
+            $_SESSION['user']=$username;
+
+            if(cek_role($_SESSION['user'])){
+            header("location:admin/berandaadmin.php");
+            exit();
+            }else{
                 header("location:games/carilampu.php");
                 exit();
-            }else{
-                echo "Incorrect username or password.";
             }
         }else{
-            echo "Username not yet registered ";
+            echo "<script>alert('Data salah');</script>";
         }
+
     }else{
-        echo "Field must not be empty.";
+        echo "username belum terdaftar";
     }
-}*/
+}else{
+    echo "gabole kosong";
+}
+}
 ?>
 
 <!DOCTYPE html>
@@ -195,7 +203,7 @@ include ("koneksi.php");
       <div class="kotaklogin">
           <div class="judul">Welcome Back!</div>
           <br>
-          <form method="post" action="login.php">
+          <form method="post" action="<?php $_SERVER['PHP_SELF'];?>">
               <table border="0">
                   <tr>
                       <td>Username</td>
