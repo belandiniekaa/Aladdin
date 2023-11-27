@@ -7,7 +7,10 @@ if(!isset($_SESSION['user'])){
 include "../functions/koneksi.php";
 include "../functions/user.php";
 
-
+if(!cek_role($_SESSION['user'])){
+    header("location:../games/carilampu.php");
+        exit();
+    }
 
 ?>
 

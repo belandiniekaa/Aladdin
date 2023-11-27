@@ -7,7 +7,10 @@ if(!isset($_SESSION['user'])){
 
 include "../functions/koneksi.php";
 include "../functions/user.php";
-
+if(!cek_role($_SESSION['user'])){
+    header("location:../games/carilampu.php");
+        exit();
+    }
 
 ?>
 
@@ -230,7 +233,7 @@ include "../functions/user.php";
             <td class='td username isi'><?php echo $row['username'];?></td>
             <td class='td role isi'><?php echo $row['role'];?></td>
             <td class='td'>
-                <img src='../img/edit (1).png' alt='' class='edit' onclick='editPopup()'>
+                <img src='../img/edit (1).png' alt='' class='edit' onclick='editPopup()'></a>
             </td>
             <td class='td'><a href='hapusUser.php?user_id=<?php echo $row['user_id'];?>'><img src='../img/trash (1).png' alt='' class='edit' ></a></td>
         </tr><?php
@@ -241,46 +244,70 @@ include "../functions/user.php";
         ?>
     </table>
 
+    <div id="popup" class="popup" style="display: none;">
     <!-- UPDATE -->
     <?php
-    
-    $userUpdate=isset($_GET['user_id'])?$_GET['user_id']:'';
-    if(isset($_POST['update'])){
-        $username=$_POST['username'];
-        $role=$_POST['role'];
+        $userUpdate = isset($_GET['user_id']) ? $_GET['user_id'] : '';
 
-        $result=mysqli_query($conn, "update users set username='$username', role='$role' where user_id='$userUpdate'");
-        if($result){
-            echo "<script>alert('User has been successfully updated.')</script>";
-            echo "<script>location.reload();</script>";
-            
-            exit();
+        if (isset($_POST['update'])) {
+            $user_id = $_POST['user_id'];
+            $username = $_POST['username'];
+            $role = $_POST['role'];
+
+            $update = "UPDATE users SET username='$username', role='$role' WHERE user_id='$user_id'";
+            $query = mysqli_query($conn, $update);
+
+            if ($query) {
+                ?>
+                <script>
+                    alert("User has been successfully updated.");
+                    document.location="users.php";
+                </script>
+                <?php
+            }
         }
 
-    }
-    $row=mysqli_fetch_array(mysqli_query($conn, "select * from users where user_id='$userUpdate' 
-    "));
+        $result = mysqli_query($conn, "SELECT * FROM users");
+        $count = 1;
+
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                ?>
+                <tr>
+                    <td class='td no isi'><?php echo $count; ?></td>
+                    <td class='td username isi'><?php echo $row['username']; ?></td>
+                    <td class='td role isi'><?php echo $row['role']; ?></td>
+                    <td class='td'>
+                    <td class='td'>
+    <img src='../img/edit (1).png' alt='' class='edit' onclick='editPopup(<?php echo $row["user_id"]; ?>)'>
+
+
+                    </td>
+                    <td class='td'><a href='hapusUser.php?user_id=<?php echo $row['user_id']; ?>'><img src='../img/trash (1).png' alt='' class='edit'></a></td>
+                </tr>
+                <?php
+                $count = $count + 1;
+            }
+        }
+        ?>
     
-    if($row!=null && $row['user_id']!=""){
-                        ?>
-    <div id="popup" class="popup" style="display: none;">
         <form name="update" action="<?php $_SERVER['PHP_SELF'];?>" method="post" id="formPopup">
             <div class="judul">
                 Edit User
             </div>
-            <input name="id" type="hidden" value="<?php echo $user['user_id'];?>">
+            <input name="id" type="hidden" value="<?php echo $row['user_id'];?>">
             <div class="isi">
                 <table border="0">
                     <tr>
                         <td class="td1">Username</td>
-                        <td class="td1" id="username"><input type="text" name="username" id="username" value="<?php echo $user['username'];?>"></td>
+                        <td class="td1" id="username"><input type="text" name="username" id="username" value="<?php echo $row['username'];?>"></td>
                     </tr>
                     <tr>
                         <td class="td1">Role</td>
                         <td class="td1" id="role">
                             <select name="role" id="role">
-                                <option value="User" <?php if($user['role']=='User') echo "selected";?> >User</option>
-                                <option value="Admin" <?php if($user['role']=='Admin') echo "selected";?> >Admin</option>
+                                <option value="User" <?php if($row['role']=='User') echo "selected";?> >User</option>
+                                <option value="Admin" <?php if($row['role']=='Admin') echo "selected";?> >Admin</option>
                             </select>
                         </td>
                     </tr>
@@ -289,10 +316,8 @@ include "../functions/user.php";
                 <button type="button" onclick="closePopup()">Cancel</button>
             </div>
         </form>
-    </div>
-    <?php
-    }
-    ?>
+   
+     </div>
 
     <div id="popup1" class="popup" style="display: none;">
         <form name="insert" action="../functions/insertUser.php" method="post" id="formPopup1">
@@ -329,6 +354,10 @@ include "../functions/user.php";
         function editPopup(id) {
             document.getElementById('popupID').innerText = id;
             document.getElementById('popup').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
         }
 
         function closePopup() {

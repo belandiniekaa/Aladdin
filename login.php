@@ -28,14 +28,23 @@ if(isset($_POST['login'])){
                 exit();
             }
         }else{
-            echo "<script>alert('Data salah');</script>";
+            echo "<script>
+            alert('Data is incorrect.');
+            document.location='login.php';
+            </script>";
         }
 
     }else{
-        echo "username belum terdaftar";
+        echo "<script>
+            alert('Username not yet registered. Please sign up!');
+            document.location='login.php';
+            </script>";
     }
 }else{
-    echo "gabole kosong";
+    echo "<script>
+    alert('Must be filled.');
+    document.location='login.php';
+    </script>";
 }
 }
 ?>

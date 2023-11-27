@@ -259,29 +259,29 @@ if (isset($_POST['update'])) {
             <th colspan="2" class="th ubah judulpilihan"></th>
         </tr>
         <?php
-        $query="select * from permintaan;";
-        $sql=mysqli_query($conn, $query);
-        while($result=mysqli_fetch_assoc($sql)){
-            echo "
-        <tr>
-            <td class='td id isi'></td>
+        $select="select * from permintaan;";
+        $query=mysqli_query($conn, $select);
+        if(mysqli_num_rows($query)>0){
+            foreach($query as $row){
+                ?>
+                <tr>
+            <td class='td id isi'><?php echo $row['id'];?></td>
             <td class='td untukgambar isi'><img src='../img/$result[foto]' alt='' class='gambar'></td>
-            <td class='td name isi'>$result[nama]</td>
+            <td class='td name isi'><?php echo $row['nama'];?></td>
             <td class='td'>
-            <a href='pilihanadmin.php?id=$result[id]' onclick='editPopup( {$result['id']})'><img src='../img/edit (1).png' alt='' class='editpilihan'></a>
-
-
-                </td>
+                <a href='' class='editpilihan'><img src='../img/edit (1).png' alt='' ></a>
+            </td>
             <td class='td'><a href='updatePermintaan.php?id=$result[id]'><img src='../img/trash (1).png' alt='' class='editpilihan' ></td>
-        </tr>";
-
-        
-            }
-    ?>
+        </tr>
+        <?php
+            }}else{
+                ?>
+                <script>alert('No record found')</script>
+                <?php
+            }?>
+    
     </table>
-        
-     
-    <!-- UPDATE -->
+    <!--UPDATE -->
 <div id="popupEdit" class="popup" style="display: none;">
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="formPopup" name="update" method="post" enctype="multipart/form-data" onsubmit="editPopup(document.getElementById('popupID').value); return false;">
         <div class="judul">
@@ -319,8 +319,9 @@ if (isset($_POST['update'])) {
             <div class="isi">
                 <table border="0">
                     <tr>
-                        <td class="td1" id="popupContent1"></td>
-                        <td class="td1" id="id"><input type="hidden" name="id" id="id" ></td>
+                    <td class="td1" id="popupID">ID</td>
+<td class="td1"><input type="text" name="id" id="popupID" readonly></td>
+
                     </tr>
                     <tr>
                         <td class="td1">Picture</td>
@@ -338,9 +339,10 @@ if (isset($_POST['update'])) {
     </div>
     <script>
         function editPopup(id) {
-            document.getElementById('popupID').value = id;
-            document.getElementById('popupEdit').style.display = 'flex';
-        }
+    document.getElementById('popupID').value = id;
+    document.getElementById('popupEdit').style.display = 'flex';
+}
+
 
         function closePopup() {
             document.getElementById('popupEdit').style.display = 'none';
