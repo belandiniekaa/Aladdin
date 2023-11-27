@@ -166,29 +166,38 @@ include "../functions/koneksi.php";
         <h1 class="judul">Choose your second wish!</h1>
     </div>
     <div>
-        <table>
+    <table border="0">
+        <tr>
             <?php
-            $query="select * from permintaan;";
-            $sql=mysqli_query($conn, $query);
-            while($result=mysqli_fetch_assoc($sql)){
+            $query = "select * from permintaan;";
+            $sql = mysqli_query($conn, $query);
+            $counter = 0; // Inisialisasi counter
+
+            while ($result = mysqli_fetch_assoc($sql)) {
                 echo "
-            <tr>
                 <td>
                     <div class='kotakpilihan1' onclick='flipkotakpilihan1(this)'>
-                    <div class='depan'>
-                        <h1>$result[nama]</h1>
+                        <div class='depan'>
+                            <h1>$result[nama]</h1>
+                        </div>
+                        <div class='belakang'>
+                            <img src='../img/$result[foto]' alt=''>
+                        </div>
                     </div>
-                    <div class='belakang'>
-                        <img src='../img/$result[foto]' alt=''>
-                    </div>
-                    </div>
-                </td>
-                
-            </tr>";
+                </td>";
+
+                // Increment counter
+                $counter++;
+
+                // Jika sudah 3 kolom, buat baris baru
+                if ($counter % 3 == 0) {
+                    echo "</tr><tr>";
+                }
             }
-        ?>
-            
-        </table>
-    </div>
+            ?>
+        </tr>
+    </table>
+</div>
+
 </body>
 </html>

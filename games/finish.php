@@ -89,7 +89,6 @@ include "../functions/user.php";
     <title>Finish</title>
 </head>
 <body>
-    <a href="../logout.php" >Logout</a>
     <div class="navbar">
         <div class="isinavbar">
             <a href="../beranda.php">Home</a>
@@ -104,6 +103,10 @@ include "../functions/user.php";
     <div class="text">
         Thank you for following the story, I hope you liked the experience!
     </div>
+    <br><br>
+    <button>
+        <a href="../logout.php" style="color: #f4a763; font-size: 18px;">Logout</a>
+    </button>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var hartaImage = document.getElementById('hartaImage');
@@ -113,8 +116,6 @@ include "../functions/user.php";
             });
         });
     </script>
-    <br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br><br>
 </body>
 </html>

@@ -118,7 +118,7 @@
             <tr>
                 <th>
                     <div class="bulet">
-                        <img src="img/ebel.png" alt="">
+                        <img src="img/hasna.png" alt="">
                     </div>
                 </th>
                 <th>
@@ -128,7 +128,7 @@
                 </th>
                 <th>
                     <div class="bulet">
-                        <img src="img/ebel.png" alt="">
+                        <img src="img/regita.png" alt="">
                     </div>
                 </th>
             </tr>

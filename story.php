@@ -110,7 +110,7 @@
             Here's The Story
         </div>
         <div class="story">
-                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Aladdin, a poor young man in a fictional Middle Eastern city, Agrabah, is recruited by a sorcerer to retrieve a magical oil lamp from a dangerous cave. After finding the lamp, Aladdin releases a powerful genie who can grant three wishes. Aladdin uses his wishes to improve his social and financial status, aiming to win the heart of Princess Jasmine. However, an antagonist, a sorcerer or Jafar, seeks to control the lamp's power, leading to conflicts and deceptions. In the end, Aladdin outsmarts the villain, sets the genie free, and marries Princess Jasmine, living a prosperous life."
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Aladdin, a poor young man in a fictional Middle Eastern city, Agrabah, is recruited by a sorcerer to retrieve a magical oil lamp from a dangerous cave. After finding the lamp, Aladdin releases a powerful genie who can grant three wishes. Aladdin uses his wishes to improve his social and financial status, aiming to win the heart of Princess Jasmine. However, an antagonist, a sorcerer or Jafar, seeks to control the lamp's power, leading to conflicts and deceptions. In the end, Aladdin outsmarts the villain, sets the genie free, and marries Princess Jasmine, living a prosperous life.
         </div>
     </div>
 </body>

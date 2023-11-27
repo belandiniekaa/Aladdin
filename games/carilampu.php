@@ -106,7 +106,7 @@ if(!isset($_SESSION['user'])){
             var hartaImage = document.getElementById('hartaImage');
 
             hartaImage.addEventListener('click', function() {
-                alert("Cari yang bisa membantu kamu keluar dari gua ini!");
+                alert("Look for items that can help you get out of this cave!");
             });
         });
     </script>

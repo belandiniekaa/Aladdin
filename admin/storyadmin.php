@@ -107,37 +107,6 @@ session_start();
             }
         }
     </style>
-    <script>
-        function Edit() {
-        var paragraph = document.getElementById('bisaedit');
-        var editButtons = document.getElementById('editButtons');
-
-        if (paragraph.contentEditable === 'true') {
-            paragraph.contentEditable = 'false';
-            editButtons.style.display = 'none';
-        } else {
-            paragraph.contentEditable = 'true';
-            paragraph.focus();
-            editButtons.style.display = 'block';
-        }
-        }
-
-        function cancelEdit() {
-        var paragraph = document.getElementById('bisaedit');
-        var editButtons = document.getElementById('editButtons');
-        
-        paragraph.contentEditable = 'false';
-        editButtons.style.display = 'none';
-        }
-
-        function saveEdit() {
-        var paragraph = document.getElementById('bisaedit');
-        var editButtons = document.getElementById('editButtons');
-        
-        paragraph.contentEditable = 'false';
-        editButtons.style.display = 'none';
-        }
-    </script>
     <title>Story</title>
 </head>
 <body>
@@ -162,13 +131,8 @@ session_start();
         <div class="judulstory">
             Here's The Story
         </div>
-        <div class="story" id="bisaedit">
+        <div class="story" >
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Aladdin, a poor young man in a fictional Middle Eastern city, Agrabah, is recruited by a sorcerer to retrieve a magical oil lamp from a dangerous cave. After finding the lamp, Aladdin releases a powerful genie who can grant three wishes. Aladdin uses his wishes to improve his social and financial status, aiming to win the heart of Princess Jasmine. However, an antagonist, a sorcerer or Jafar, seeks to control the lamp's power, leading to conflicts and deceptions. In the end, Aladdin outsmarts the villain, sets the genie free, and marries Princess Jasmine, living a prosperous life.
-                <div id="editButtons" style="display: none;">
-                    <button type="button" onclick="cancelEdit()">Batal</button>
-                    <button type="button" onclick="saveEdit()">Simpan</button>
-                </div>
-                <button type="button" onclick="Edit()"><img src="../img/edit (1).png" alt=""></button>
         </div>
     </div>
 </body>

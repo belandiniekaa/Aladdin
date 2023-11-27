@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "../functions/koneksi.php";
 
 ?>
 
@@ -127,37 +128,7 @@ session_start();
             color: #0c133f;
         }
     </style>
-    <script>
-        function Edit() {
-            var paragraph = document.getElementById('bisaedit');
-            var editButtons = document.getElementById('editButtons');
 
-            if (paragraph.contentEditable === 'true') {
-                paragraph.contentEditable = 'false';
-                editButtons.style.display = 'none';
-            } else {
-                paragraph.contentEditable = 'true';
-                paragraph.focus();
-                editButtons.style.display = 'block';
-            }
-        }
-
-        function cancelEdit() {
-            var paragraph = document.getElementById('bisaedit');
-            var editButtons = document.getElementById('editButtons');
-
-            paragraph.contentEditable = 'false';
-            editButtons.style.display = 'none';
-        }
-
-        function saveEdit() {
-            var paragraph = document.getElementById('bisaedit');
-            var editButtons = document.getElementById('editButtons');
-
-            paragraph.contentEditable = 'false';
-            editButtons.style.display = 'none';
-        }
-    </script>
     <title>About Us</title>
 </head>
 <body>
@@ -183,7 +154,7 @@ session_start();
             <tr>
                 <th>
                     <div class="bulet">
-                        <img src="../img/ebel.png" alt="">
+                        <img src="../img/hasna.png" alt="">
                     </div>
                 </th>
                 <th>
@@ -193,11 +164,11 @@ session_start();
                 </th>
                 <th>
                     <div class="bulet">
-                        <img src="../img/ebel.png" alt="">
+                        <img src="../img/regita.png" alt="">
                     </div>
                 </th>
             </tr>
-            <tr id="bisaedit">
+            <tr>
                 <td>
                     <p class="nama">Hasna Mumtazah</p>
                     <p class="tugas">UI/UX Designer</p>
@@ -213,10 +184,5 @@ session_start();
             </tr>
         </table>
     </div>
-    <div id="editButtons" style="display: none;">
-        <br><button type="button" onclick="cancelEdit()">Batal</button>
-        <button type="button" onclick="saveEdit()">Simpan</button>
-    </div>
-    <br><button type="button" onclick="Edit()">Edit Role</button>
 </body>
 </html>
