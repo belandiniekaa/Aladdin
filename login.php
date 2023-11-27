@@ -181,13 +181,13 @@ if(isset($_POST['login'])){
                 var password = document.querySelector('.kotakinput[type="password"]').value;
   
                 if (username === '' && password === '') {
-                    alert('Username dan Password harus diisi!');
+                    alert('Username and Password must be filled in!');
                     event.preventDefault();
                 } else if (username === '') {
-                    alert('Username harus diisi!');
+                    alert('Username must be filled in!');
                     event.preventDefault();
                 } else if (password === '') {
-                    alert('Password harus diisi!');
+                    alert('Password must be filled in!!');
                     event.preventDefault();
                 }
             });
@@ -226,7 +226,7 @@ if(isset($_POST['login'])){
           </form>
           <p style="color: white;">
               Don't have an account yet? <br>
-              <a href="register.php">Sign Up here</a>
+              <a href="register.php">Sign up here</a>
           </p>
       </div>
     <div>

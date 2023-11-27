@@ -194,16 +194,16 @@ include "../functions/koneksi.php";
             <a href="berandaadmin.php">Home</a>
         </div>
         <div class="isinavbar">
-            <a href="storyadmin.html">Story</a>
+            <a href="storyadmin.php">Story</a>
         </div>
         <div class="isinavbar">
-            <a href="users.html">Users</a>
+            <a href="users.php">Users</a>
         </div>
         <div class="isinavbar">
             <a class="disini">Wishes</a>
         </div>
         <div class="isinavbar">
-            <a href="aboutusadmin.html">About Us</a>
+            <a href="aboutusadmin.php">About Us</a>
         </div>
     </div>
     <div onclick="tambahPopup()" class="tambah">

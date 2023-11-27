@@ -104,10 +104,10 @@
 <body>
     <div class="navbar">
         <div class="isinavbar">
-            <a href="beranda.html">Home</a>
+            <a href="beranda.php">Home</a>
         </div>
         <div class="isinavbar">
-            <a href="story.html">Story</a>
+            <a href="story.php">Story</a>
         </div>
         <div class="isinavbar">
             <a class="disini">About Us</a>

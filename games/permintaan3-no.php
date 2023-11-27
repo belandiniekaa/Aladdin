@@ -138,7 +138,7 @@ session_start();
                 selectedKotakpilihan1 = kotakpilihan1;
 
                 setTimeout(function(){
-                    window.location.href = 'finish.php';
+                    window.location.href = 'penjara.php';
                 }, 5000);
             }
         }
@@ -169,52 +169,52 @@ session_start();
             <tr>
                 <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
                     <div class="depan">
-                        <h1>Power</h1>
+                        <h1>???</h1>
                     </div>
                     <div class="belakang">
-                        <img src="../img/aladdin.jpg" alt="">
+                        <img src="../img/angrygenie.jpg" alt="">
                     </div>
                 </div></td>
                 <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
                     <div class="depan">
-                        <h1>Power</h1>
+                        <h1>???</h1>
                     </div>
                     <div class="belakang">
-                        <img src="../img/aladdin.jpg" alt="">
+                        <img src="../img/angrygenie.jpg" alt="">
                     </div>
                 </div></td>
                 <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
                     <div class="depan">
-                        <h1>Power</h1>
+                        <h1>???</h1>
                     </div>
                     <div class="belakang">
-                        <img src="../img/aladdin.jpg" alt="">
+                        <img src="../img/angrygenie.jpg" alt="">
                     </div>
                 </div></td>
             </tr>
             <tr>
                 <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
                     <div class="depan">
-                        <h1>Power</h1>
+                        <h1>???</h1>
                     </div>
                     <div class="belakang">
-                        <img src="../img/aladdin.jpg" alt="">
+                        <img src="../img/angrygenie.jpg" alt="">
                     </div>
                 </div></td>
                 <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
                     <div class="depan">
-                        <h1>Power</h1>
+                        <h1>???</h1>
                     </div>
                     <div class="belakang">
-                        <img src="../img/aladdin.jpg" alt="">
+                        <img src="../img/angrygenie.jpg" alt="">
                     </div>
                 </div></td>
                 <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
                     <div class="depan">
-                        <h1>Power</h1>
+                        <h1>???</h1>
                     </div>
                     <div class="belakang">
-                        <img src="../img/aladdin.jpg" alt="">
+                        <img src="../img/angrygenie.jpg" alt="">
                     </div>
                 </div></td>
             </tr>

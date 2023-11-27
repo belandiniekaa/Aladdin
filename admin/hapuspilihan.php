@@ -45,7 +45,7 @@
             padding: 5px 10px 5px 10px;
         }
     </style>
-    <title>Nyoba</title>
+    <title>Hapus</title>
 </head>
 <body>
     <form action="">

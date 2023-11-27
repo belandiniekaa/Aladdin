@@ -3,21 +3,17 @@ session_start();
 include "functions/koneksi.php";
 include "functions/user.php";
 
-//redirect jika sudah regist
 if(isset($_SESSION['user'])){
     header("location:login.php");
 }
 
-//validasi
 if(isset($_POST['regist'])){
     $username=$_POST['username'];
     $password=$_POST['password'];
 
-    //trim =menghilangkan jarak kosong di awal dan akhir string
     if(!empty(trim($username)) && !empty(trim($password))){
         if(cek_usn($username)==0){
 
-        //masukin ke db
         if(register_user($username, $password)){
             echo "<script>
             alert('Account successfully added.');
@@ -180,16 +176,16 @@ if(isset($_POST['regist'])){
 
                     if(typeof errorMessage!=='undefined' && errorMessage!=null){
                         alert(errorMessage);
-                        event.preventDefault(); //menghentikan proses submit jk ada kesalahan
+                        event.preventDefault(); 
                     }else{
                         if (username === '' && password === '') {
-                            alert('Username dan Password harus diisi!');
+                            alert('Username and Password must be filled in!');
                             event.preventDefault();
                         } else if (username === '') {
-                            alert('Username harus diisi!');
+                            alert('Username must be filled in!');
                             event.preventDefault();
                         } else if (password === '') {
-                            alert('Password harus diisi!');
+                            alert('Password must be filled in!');
                             event.preventDefault();
                         }
                     }
@@ -205,7 +201,7 @@ if(isset($_POST['regist'])){
                         var confirmPassword = document.querySelectorAll('.kotakinput[type="password"]')[1].value;
         
                         if (password !== confirmPassword) {
-                            alert('Password dan Confirm Password haruslah sama!');
+                            alert('"The Password and Confirm Password must be the same!"');
                             event.preventDefault();
                         }
                     });
@@ -250,7 +246,7 @@ if(isset($_POST['regist'])){
           </form>
           <p style="color: white;">
               Already have an account?<br>
-              <a href="login.html">Sign in here.</a>
+              <a href="login.php">Sign in here.</a>
           </p>
       </div>
     <div>

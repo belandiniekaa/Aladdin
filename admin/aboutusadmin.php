@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -162,7 +161,7 @@
             <a href="berandaadmin.php">Home</a>
         </div>
         <div class="isinavbar">
-            <a href="storyadmin.html">Story</a>
+            <a href="storyadmin.php">Story</a>
         </div>
         <div class="isinavbar">
             <a href="users.php">Users</a>

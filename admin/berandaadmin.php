@@ -11,7 +11,7 @@ if(!isset($_SESSION['user'])){
 
 ?>
 
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -116,7 +116,7 @@ if(!isset($_SESSION['user'])){
             <a class="disini">Home</a>
         </div>
         <div class="isinavbar">
-            <a href="storyadmin.html">Story</a>
+            <a href="storyadmin.php">Story</a>
         </div>
         <div class="isinavbar">
             <a href="users.php">Users</a>
@@ -125,7 +125,7 @@ if(!isset($_SESSION['user'])){
             <a href="pilihanadmin.php">Wishes</a>
         </div>
         <div class="isinavbar">
-            <a href="aboutusadmin.html">About Us</a>
+            <a href="aboutusadmin.php">About Us</a>
         </div>
     </div>
     <div class="beranda">
@@ -134,7 +134,7 @@ if(!isset($_SESSION['user'])){
                 Embark on a magical <br> journey and discover <br> a whole new world! <br> Ready to join my adventure?
             </p>
             <div class="join">
-                <a href="../auth/login.php">Join</a>
+                <a href="../login.php">Join</a>
             </div>
         </div>
     </div>
