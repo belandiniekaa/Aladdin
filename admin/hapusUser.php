@@ -12,7 +12,7 @@ if(isset($_GET['user_id'])) {
         $query = mysqli_query($conn, $hapus);
         if($query){
             ?>
-            <script>alert("Wishes successfully deleted.");window.location='users.php';</script>
+            <script>alert("User has been successfully deleted.");window.location='users.php';</script>
             <?php
         }
     }

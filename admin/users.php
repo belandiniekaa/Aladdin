@@ -285,12 +285,12 @@ include "../functions/user.php";
     <?php
             }
             
-            if(isset($_POST['insert'])){
+            /*if(isset($_POST['insert'])){
             $username=$_POST['username'];
             $password=$_POST['password'];
             $role=$_POST['role'];
 
-            $result=mysqli_query($conn, "insert into users (user_id, username, password, role) values('', '$username','$password','$role')");
+            $result=mysqli_query($conn, "insert into users ( username, password, role) values( '$username','$password','$role')");
             if($result){
                 echo "<script>alert('User successfully added.')</script>";
                 echo "<script>location.reload();</script>";
@@ -299,11 +299,11 @@ include "../functions/user.php";
                 echo "<script>alert('Failed to add user. Username already exist.')</script>";
                 echo "<script>location.reload();</script>";
             }
-        }
+        }*/
     ?>
 
     <div id="popup1" class="popup" style="display: none;">
-        <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" name="add" id="formPopup1">
+        <form name="insert" action="../functions/insertUser.php" method="post" id="formPopup1">
             <div class="judul">
                 Add User
             </div>
