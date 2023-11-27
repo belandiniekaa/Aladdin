@@ -6,12 +6,6 @@ if(!isset($_SESSION['user'])){
 include "../functions/koneksi.php";
 include "../functions/user.php";
 
-if(cek_role($_SESSION['user'])){
-    return true;
-    }else{
-        header("location:../games/carilampu.php");
-        exit();
-    }
 
 if(isset($_GET['user_id'])) {
     $user_id = $_GET['user_id'];

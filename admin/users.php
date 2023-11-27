@@ -8,12 +8,6 @@ if(!isset($_SESSION['user'])){
 include "../functions/koneksi.php";
 include "../functions/user.php";
 
-if(cek_role($_SESSION['user'])){
-    return true;
-    }else{
-        header("location:../games/carilampu.php");
-        exit();
-    }
 
 ?>
 
@@ -229,17 +223,17 @@ if(cek_role($_SESSION['user'])){
         
         if(mysqli_num_rows($result)>0){
             while($row=mysqli_fetch_assoc($result)){
-                echo "
+                ?>
+
         <tr>
-            <td class='td no isi'>$count</td>
-            <td class='td username isi'>$row[username]</td>
-            <td class='td role isi'>$row[role]</td>
+            <td class='td no isi'><?php echo $count;?></td>
+            <td class='td username isi'><?php echo $row['username'];?></td>
+            <td class='td role isi'><?php echo $row['role'];?></td>
             <td class='td'>
-                <a href='users.php?id=$row[user_id]'>
-                <img src='../img/edit (1).png' alt='' class='edit' onclick='editPopup()'></a>
+                <img src='../img/edit (1).png' alt='' class='edit' onclick='editPopup()'>
             </td>
-            <td class='td'><a href='hapusUser.php?user_id=$row[user_id]'><img src='../img/trash (1).png' alt='' class='edit' ></td>
-        </tr>";
+            <td class='td'><a href='hapusUser.php?user_id=<?php echo $row['user_id'];?>'><img src='../img/trash (1).png' alt='' class='edit' ></a></td>
+        </tr><?php
         $count=$count+1;
             }
         }
@@ -249,6 +243,7 @@ if(cek_role($_SESSION['user'])){
 
     <!-- UPDATE -->
     <?php
+    
     $userUpdate=isset($_GET['user_id'])?$_GET['user_id']:'';
     if(isset($_POST['update'])){
         $username=$_POST['username'];
@@ -267,27 +262,25 @@ if(cek_role($_SESSION['user'])){
     "));
     
     if($row!=null && $row['user_id']!=""){
-        ?>
+                        ?>
     <div id="popup" class="popup" style="display: none;">
-        <form name="edit" action="<?php $_SERVER['PHP_SELF'];?>" method="post" id="formPopup">
+        <form name="update" action="<?php $_SERVER['PHP_SELF'];?>" method="post" id="formPopup">
             <div class="judul">
                 Edit User
             </div>
+            <input name="id" type="hidden" value="<?php echo $user['user_id'];?>">
             <div class="isi">
                 <table border="0">
                     <tr>
-                        <td class="td1" id="popupID" hidden></td>
-                    </tr>
-                    <tr>
                         <td class="td1">Username</td>
-                        <td class="td1" id="username"><input type="text" name="username" id="username"></td>
+                        <td class="td1" id="username"><input type="text" name="username" id="username" value="<?php echo $user['username'];?>"></td>
                     </tr>
                     <tr>
                         <td class="td1">Role</td>
                         <td class="td1" id="role">
                             <select name="role" id="role">
-                                <option value="User" <?php if($row['role']=='User') echo "selected";?> >User</option>
-                                <option value="Admin" <?php if($row['role']=='Admin') echo "selected";?> >Admin</option>
+                                <option value="User" <?php if($user['role']=='User') echo "selected";?> >User</option>
+                                <option value="Admin" <?php if($user['role']=='Admin') echo "selected";?> >Admin</option>
                             </select>
                         </td>
                     </tr>
@@ -298,23 +291,7 @@ if(cek_role($_SESSION['user'])){
         </form>
     </div>
     <?php
-            }
-            
-            /*if(isset($_POST['insert'])){
-            $username=$_POST['username'];
-            $password=$_POST['password'];
-            $role=$_POST['role'];
-
-            $result=mysqli_query($conn, "insert into users ( username, password, role) values( '$username','$password','$role')");
-            if($result){
-                echo "<script>alert('User successfully added.')</script>";
-                echo "<script>location.reload();</script>";
-                exit();
-            }else{
-                echo "<script>alert('Failed to add user. Username already exist.')</script>";
-                echo "<script>location.reload();</script>";
-            }
-        }*/
+    }
     ?>
 
     <div id="popup1" class="popup" style="display: none;">

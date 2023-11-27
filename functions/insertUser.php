@@ -40,4 +40,21 @@ if (isset($_POST['insert'])) {
         }
     }
 }
+
+//UPDATE
+if(isset($_POST['update'])){
+    $id=$_POST['id'];
+    $username=$_POST['username'];
+    $role=$_POST['role'];
+    $sql="update users set username='$username', role='$role' where user_id='$id";
+    $query=mysqli_query($conn, $sql);
+
+    if($query){
+        ?>
+        <script>alert("Data has been successfully added.")</script>
+        header("location:../admin/users.php");
+        exit();
+        <?php
+    }
+}
 ?>
