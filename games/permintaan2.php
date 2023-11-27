@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!isset($_SESSION['user'])){
+    header("location:../login.php");
+}
+
 include "../functions/koneksi.php";
 ?>
 
@@ -169,11 +173,11 @@ include "../functions/koneksi.php";
     <table border="0">
         <tr>
             <?php
-            $query = "select * from permintaan;";
-            $sql = mysqli_query($conn, $query);
-            $counter = 0; // Inisialisasi counter
+            $query="select * from permintaan";
+            $sql=mysqli_query($conn, $query);
+            $counter=0; //inisialisasi counter
 
-            while ($result = mysqli_fetch_assoc($sql)) {
+            while($result=mysqli_fetch_assoc($sql)) {
                 echo "
                 <td>
                     <div class='kotakpilihan1' onclick='flipkotakpilihan1(this)'>
@@ -185,12 +189,10 @@ include "../functions/koneksi.php";
                         </div>
                     </div>
                 </td>";
-
-                // Increment counter
                 $counter++;
 
-                // Jika sudah 3 kolom, buat baris baru
-                if ($counter % 3 == 0) {
+                //kalo udah 3 kolom, buat baris baru
+                if($counter % 3 == 0) {
                     echo "</tr><tr>";
                 }
             }

@@ -1,5 +1,19 @@
 <?php
 session_start();
+if(!isset($_SESSION['user'])){
+    header("location:../login.php");
+}
+
+include "../functions/koneksi.php";
+include "../functions/user.php";
+
+if(cek_role($_SESSION['user'])){
+    return true;
+    }else{
+        header("location:../games/carilampu.php");
+        exit();
+    }
+
 ?>
 
 <!DOCTYPE html>

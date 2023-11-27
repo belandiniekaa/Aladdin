@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(!isset($_SESSION['user'])){
+    header("location:../login.php");
+}
 include "koneksi.php";
                 if (isset($_POST['insert'])) {
                     $nama = $_POST['nama'];

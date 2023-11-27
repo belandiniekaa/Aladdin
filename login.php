@@ -1,11 +1,12 @@
 <?php
 session_start();
-
+if(isset($_SESSION['user'])){
+    header("location:games/carilampu.php");
+    
+}
 
 include "functions/koneksi.php";
 include "functions/user.php";
-
-
 
 //validasi
 if(isset($_POST['login'])){

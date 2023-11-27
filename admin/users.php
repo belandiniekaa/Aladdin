@@ -1,7 +1,19 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['user'])){
+    header("location:../login.php");
+}
+
 include "../functions/koneksi.php";
 include "../functions/user.php";
+
+if(cek_role($_SESSION['user'])){
+    return true;
+    }else{
+        header("location:../games/carilampu.php");
+        exit();
+    }
 
 ?>
 
@@ -222,7 +234,10 @@ include "../functions/user.php";
             <td class='td no isi'>$count</td>
             <td class='td username isi'>$row[username]</td>
             <td class='td role isi'>$row[role]</td>
-            <td class='td'><img src='../img/edit (1).png' alt='' class='edit' onclick='editPopup($row[user_id])'></td>
+            <td class='td'>
+                <a href='users.php?id=$row[user_id]'>
+                <img src='../img/edit (1).png' alt='' class='edit' onclick='editPopup()'></a>
+            </td>
             <td class='td'><a href='hapusUser.php?user_id=$row[user_id]'><img src='../img/trash (1).png' alt='' class='edit' ></td>
         </tr>";
         $count=$count+1;

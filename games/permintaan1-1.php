@@ -1,7 +1,10 @@
 <?php
 session_start();
-include "../functions/koneksi.php";
 
+if(!isset($_SESSION['user'])){
+    header("location:../login.php");
+    
+}
 ?>
 
 <!DOCTYPE html>

@@ -1,11 +1,14 @@
 <?php
 session_start();
-include "../functions/koneksi.php";
-include "../functions/user.php";
 
 if(!isset($_SESSION['user'])){
     header("location:../login.php");
+    
 }
+include "../functions/koneksi.php";
+include "../functions/user.php";
+
+
 
 ?>
 <!DOCTYPE html>
