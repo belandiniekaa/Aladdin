@@ -1,17 +1,52 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['user'])){
+if (!isset($_SESSION['user'])) {
     header("location:../login.php");
 }
 
 include "../functions/koneksi.php";
 include "../functions/user.php";
-if(!cek_role($_SESSION['user'])){
+if (!cek_role($_SESSION['user'])) {
     header("location:../games/carilampu.php");
+    exit();
+}
+
+// Update process
+if (isset($_POST['update'])) {
+    $user_id = $_POST['user_id'];
+    $username = $_POST['username'];
+    $role = $_POST['role'];
+
+    $update = mysqli_query($conn, "UPDATE users SET username='$username', role='$role' WHERE user_id=$user_id");
+
+    if ($update) {
+        header("Location: users.php");
+        exit();
+    } else {
+        echo "Error updating record: " . mysqli_error($conn);
+    }
+}
+
+/// Fetch user data for pre-filling the form
+if (isset($_GET['user_id'])) {
+    $user_id = $_GET['user_id'];
+    $result = mysqli_query($conn, "SELECT * FROM users WHERE user_id=$user_id");
+
+    // Check if user data is found
+    if ($user_data = mysqli_fetch_array($result)) {
+        $username = $user_data['username'];
+        $role = $user_data['role'];
+    } else {
+        // Handle the case when no user data is found
+        header("Location: users.php");
         exit();
     }
-
+} else {
+    // Handle the case when user_id is not provided in the URL
+    header("Location: users.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -244,70 +279,25 @@ if(!cek_role($_SESSION['user'])){
         ?>
     </table>
 
+    <!--edit form-->
     <div id="popup" class="popup" style="display: none;">
-    <!-- UPDATE -->
-    <?php
-        $userUpdate = isset($_GET['user_id']) ? $_GET['user_id'] : '';
-
-        if (isset($_POST['update'])) {
-            $user_id = $_POST['user_id'];
-            $username = $_POST['username'];
-            $role = $_POST['role'];
-
-            $update = "UPDATE users SET username='$username', role='$role' WHERE user_id='$user_id'";
-            $query = mysqli_query($conn, $update);
-
-            if ($query) {
-                ?>
-                <script>
-                    alert("User has been successfully updated.");
-                    document.location="users.php";
-                </script>
-                <?php
-            }
-        }
-
-        $result = mysqli_query($conn, "SELECT * FROM users");
-        $count = 1;
-
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                ?>
-                <tr>
-                    <td class='td no isi'><?php echo $count; ?></td>
-                    <td class='td username isi'><?php echo $row['username']; ?></td>
-                    <td class='td role isi'><?php echo $row['role']; ?></td>
-                    <td class='td'>
-                    <td class='td'>
-    <img src='../img/edit (1).png' alt='' class='edit' onclick='editPopup(<?php echo $row["user_id"]; ?>)'>
-
-
-                    </td>
-                    <td class='td'><a href='hapusUser.php?user_id=<?php echo $row['user_id']; ?>'><img src='../img/trash (1).png' alt='' class='edit'></a></td>
-                </tr>
-                <?php
-                $count = $count + 1;
-            }
-        }
-        ?>
-    
-        <form name="update" action="<?php $_SERVER['PHP_SELF'];?>" method="post" id="formPopup">
+        <form name="update" action="users.php" method="post" id="formPopup">
             <div class="judul">
                 Edit User
             </div>
-            <input name="id" type="hidden" value="<?php echo $row['user_id'];?>">
+            <input name="user_id" type="hidden" id="popupID" value="<?php echo $user_id; ?>">
             <div class="isi">
                 <table border="0">
                     <tr>
                         <td class="td1">Username</td>
-                        <td class="td1" id="username"><input type="text" name="username" id="username" value="<?php echo $row['username'];?>"></td>
+                        <td class="td1" id="username"><input type="text" name="username" id="username" value="<?php echo $username; ?>"></td>
                     </tr>
                     <tr>
                         <td class="td1">Role</td>
                         <td class="td1" id="role">
                             <select name="role" id="role">
-                                <option value="User" <?php if($row['role']=='User') echo "selected";?> >User</option>
-                                <option value="Admin" <?php if($row['role']=='Admin') echo "selected";?> >Admin</option>
+                                <option value="Admin" <?php echo ($role == 'Admin') ? 'selected' : ''; ?>>Admin</option>
+                                <option value="User" <?php echo ($role == 'User') ? 'selected' : ''; ?>>User</option>
                             </select>
                         </td>
                     </tr>
@@ -316,8 +306,7 @@ if(!cek_role($_SESSION['user'])){
                 <button type="button" onclick="closePopup()">Cancel</button>
             </div>
         </form>
-   
-     </div>
+    </div>
 
     <div id="popup1" class="popup" style="display: none;">
         <form name="insert" action="../functions/insertUser.php" method="post" id="formPopup1">
@@ -360,11 +349,6 @@ if(!cek_role($_SESSION['user'])){
             document.getElementById('popup').style.display = 'none';
         }
 
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-        }
-    </script>
-    <script>
         function tambahPopup() {
             document.getElementById('popup1').style.display = 'flex';
         }
@@ -374,5 +358,4 @@ if(!cek_role($_SESSION['user'])){
         }
     </script>
 </body>
-
 </html>

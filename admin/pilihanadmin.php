@@ -14,50 +14,6 @@ if(!cek_role($_SESSION['user'])){
         exit();
     }
 
-//UPDATE 
-if (isset($_POST['update'])) {
-    $id = $_POST['id'];
-    $nama = $_POST['nama'];
-
-    // Check if a new file is uploaded
-    if ($_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-        $foto = $_FILES['foto']['name'];
-        $uploadDir = '../img/';
-        $uploadPath = $uploadDir . $foto;
-
-        if (move_uploaded_file($_FILES["foto"]["tmp_name"], $uploadPath)) {
-            $update = "UPDATE permintaan SET nama='$nama', foto='$foto' WHERE id='$id'";
-            $query = mysqli_query($conn, $update);
-        } else {
-            ?>
-            <script>
-                alert("Failed to upload file.");
-                window.location = 'pilihanadmin.php';
-                exit();
-            </script>
-            <?php
-        }
-    } else {
-        $update = "UPDATE permintaan SET nama='$nama' WHERE id='$id'";
-        $query = mysqli_query($conn, $update);
-    }
-
-    if ($query) {
-        ?>
-        <script>
-            alert("Wishes successfully updated.");
-            window.location = 'pilihanadmin.php';
-        </script>
-        <?php
-    } else {
-        ?>
-        <script>
-            alert("Update data failed.");
-            window.location = 'pilihanadmin.php';
-        </script>
-        <?php
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -284,31 +240,15 @@ if (isset($_POST['update'])) {
                 <td class='td'>
                 <img src='../img/edit (1).png' alt='' class='editpilihan' onclick=\"editPopup('{$row['id']}')\">
                 </td>
-                <td class='td'><a href='updatePermintaan.php?id=$row[id]'><img src='../img/trash (1).png' alt='' class='editpilihan'></td>
+                <td class='td'><a href='deletePermintaan.php?id=$row[id]'><img src='../img/trash (1).png' alt='' class='editpilihan'></td>
             </tr>";
             }
     ?>
     </table>
-    <!-- UPDATE -->
-    <?php
-    $nama='';
-
-    if(isset($_GET['id'])) {
-        $idUp = $_GET['id'];
-        $queryUp = "select * from permintaan where id='$idUp'";
-        $resultUp = mysqli_query($conn, $queryUp);
-
-        if ($resultUp && $rowUp = mysqli_fetch_assoc($resultUp)) {
-            
-            $id = $rowUp['id'];
-            $nama = $rowUp['nama'];
-            $foto = $rowUp['foto'];
-        }else{
-        }
-    }
-    ?>
+    
 <div id="popupEdit" class="popup" style="display: none;">
-    <form action="pilihanadmin.php" id="formPopup" name="update" method="post" enctype="multipart/form-data" onsubmit="editPopup(document.getElementById('popupID').value); ">
+<form action="updatePermintaan.php" id="formPopup" name="update" method="post" enctype="multipart/form-data" onsubmit="editPopup(document.getElementById('popupInputID').value);">
+
         <div class="judul">
             Edit Wishes
         </div>
@@ -316,7 +256,7 @@ if (isset($_POST['update'])) {
             <table border="0">
                 <tr>
                     <td class="td1" id="popupID"><?php echo $id;?></td>
-                    <td class="td1"><input type="hidden" name="id" id="popupInputID" value="<?php echo $id;?>"></td>
+                    <td class="td1"><input type="hidden" name="id" id="popupInputID" value="<?php echo $row['id'];?>"></td>
                 </tr>
                 <tr>
                     <td class="td1">Picture</td>
@@ -324,7 +264,7 @@ if (isset($_POST['update'])) {
                 </tr>
                 <tr>
                     <td class="td1">Name</td>
-                    <td class="td1" id="name"><input name="nama" type="text" value="<?php echo $nama; ?>"></td>
+                    <td class="td1" id="name"><input name="nama" type="text" value="<?php echo $row['nama']; ?>"></td>
 
                 </tr>
                 
