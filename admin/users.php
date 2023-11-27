@@ -199,19 +199,7 @@ include "../functions/user.php";
             <a href="aboutusadmin.php">About Us</a>
         </div>
     </div>
-    <?php
-    if(isset($_GET['user_id'])){
-        $user_id=$_GET['user_id'];
-        if($user_id!=''){
-            $row=mysqli_fetch_array(mysqli_query($conn, "select * from users where user_id='$user_id'"));
-            $hapus="delete from users where user_id='$user_id'";
-            $query=mysqli_query($conn, $hapus);
-            if($query){
-                echo "<script>alert('The user has been successfully deleted.')</script>";
-            }
-        }
-    }
-    ?>
+    
     <div onclick="tambahPopup()" class="tambah">
         <br>Add Users
     </div>
@@ -235,7 +223,7 @@ include "../functions/user.php";
             <td class='td username isi'>$row[username]</td>
             <td class='td role isi'>$row[role]</td>
             <td class='td'><img src='../img/edit (1).png' alt='' class='edit' onclick='editPopup($row[user_id])'></td>
-            <td class='td'><img src='../img/trash (1).png' alt='' class='edit'></td>
+            <td class='td'><a href='hapusUser.php?user_id=$row[user_id]'><img src='../img/trash (1).png' alt='' class='edit' ></td>
         </tr>";
         $count=$count+1;
             }
@@ -296,13 +284,7 @@ include "../functions/user.php";
     </div>
     <?php
             }
-            ?>
-    <div id="popup1" class="popup" style="display: none;">
-        <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" name="add" id="formPopup1">
-            <div class="judul">
-                Add User
-            </div>
-            <?php
+            
             if(isset($_POST['insert'])){
             $username=$_POST['username'];
             $password=$_POST['password'];
@@ -319,6 +301,13 @@ include "../functions/user.php";
             }
         }
     ?>
+
+    <div id="popup1" class="popup" style="display: none;">
+        <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" name="add" id="formPopup1">
+            <div class="judul">
+                Add User
+            </div>
+            
             <div class="isi">
                 <table border="0">
                     <tr>

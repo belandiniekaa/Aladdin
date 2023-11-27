@@ -1,6 +1,23 @@
 <?php 
 session_start();
 include "../functions/koneksi.php";
+
+//delete
+if(isset($_GET['id'])){
+	$id=$_GET['id'];
+	if($id!=""){
+	$row=mysqli_fetch_array(mysqli_query($conn, "select * from permintaan where id='$id' "));
+	$filefoto=$row['foto'];
+	unlink($filefoto);
+	$hapus="delete from permintaan where id='$id' ";
+	$query=mysqli_query($conn, $hapus);
+	if($query){
+		?>
+		<script>alert("Wishes successfully deleted.");window.location='pilihanadmin.php';</script>
+		<?php
+	}
+}
+}
 ?>
 
 <!DOCTYPE html>
@@ -216,75 +233,65 @@ include "../functions/koneksi.php";
             <th colspan="2" class="th ubah judulpilihan"></th>
         </tr>
         <?php
-        $result=mysqli_query($conn, "select * from permintaan");
-        
-        if(mysqli_num_rows($result)>0){
-            while($row=mysqli_fetch_assoc($result)){
-                echo "
+        $query="select * from permintaan;";
+        $sql=mysqli_query($conn, $query);
+        while($result=mysqli_fetch_assoc($sql)){
+            echo "
         <tr>
-            <td class='td id isi'>$row[id]</td>
-            <td class='td untukgambar isi'><img src='$row[foto]' alt='' class='gambar'></td>
-            <td class='td name isi'>$row[nama]</td>
-            <td class='td'><img src='../img/edit (1).png' alt='' class='editpilihan' onclick='editPopup('1111')'></td>
-            <td class='td'><a href='pilihanadmin.php'><img src='../img/trash (1).png' alt='' class='editpilihan'></a></td>
+            <td class='td id isi'>$result[id]</td>
+            <td class='td untukgambar isi'><img src='../img/$result[foto]' alt='' class='gambar'></td>
+            <td class='td name isi'>$result[nama]</td>
+            <td class='td'><img src='../img/edit (1).png' alt='' class='editpilihan' id='popupID' onclick='editPopup($result[id])'></td>
+            <td class='td'><a href='pilihanadmin.php?id=$result[id]'><img src='../img/trash (1).png' alt='' class='editpilihan' ></td>
         </tr>";
-            }
-        }
-        ?>
+
         
+            }
+    ?>
     </table>
+        
     <!-- UPDATE -->
     <?php
-    $userUpdate=isset($_GET['id'])?$_GET['id']:'';
-    if(isset($_POST['update'])){
-        $id=$_POST['id'];
-        $nama=$_POST['nama'];
+     $idupdate=isset($_GET['id'])?$_GET['id']:'';
+     if(isset($_POST['update'])){
+     $id=$_POST['id'];
+     $nama=$_POST['nama'];
+    
+     // Periksa error pengunggahan file
+     if ($_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+        $foto = $_FILES['foto']['name'];
+        $uploadDir = '../img/';
+        $uploadPath = $uploadDir . $foto;
 
-        if($_FILES['foto']['error']===UPLOAD_ERR_OK){
-            $foto=$_FILES['foto']['name'];
-            $upload='../img/'.$foto;
-
-            if(move_uploaded_file($_FILES['foto']['tmp_name'], $upload)){
-                $update="update permintaan set nama='$nama', foto='$foto' where id='$id'";
-                $query=mysqli_query($conn, $update);
-
-                if($query){
-                    echo "<script>alert('Wish has been successfully updated.')</script>";
-                    echo "<script>location.reload();</script>";
-                    header("location:pilihanadmin.php");
-                    exit();
-                }else{
-                    echo "<script>alert('Failed to update wish.')</script>";
-                    echo "<script>location.reload();</script>";
-                    header("location:pilihanadmin.php");
-                    exit();
-                }
-            }else{
-                echo "<script>alert('Failed to upload image.')</script>";
-                echo "<script>location.reload();</script>";
-                header("location:pilihanadmin.php");
-                exit();
-            }
-        }else{
-            $update="update permintaan set nama='$nama' where id='$id'";
-            $query=mysqli_query($conn, $update);
-
-            if($query){
-                echo "<script>alert('Wish has been successfully updated.')</script>";
-                echo "<script>location.reload();</script>";
-                header("location:pilihanadmin.php");
-                exit();
-            }else{
-                echo "<script>alert('Failed to update wish.')</script>";
-                echo "<script>location.reload();</script>";
-                header("location:pilihanadmin.php");
-                exit();
-            }
-        }
-    }
-    ?>
-    <div id="popup" class="popup" style="display: none;">
-        <form action="pilihanadmin.php" id="formPopup">
+        // Pindahkan file ke direktori yang diinginkan
+        if (move_uploaded_file($_FILES["foto"]["tmp_name"], $uploadPath)) {
+            $update = "update  permintaan set nama='$nama', foto='$foto' where id='$idupdate'";
+            
+         }else{
+     $update="update permintaan set nama='$nama' where id='$idupdate' ";
+     
+         }
+     }
+     $query=mysqli_query($conn, $update);
+     if($query){
+        ?>
+        <script>
+        alert("Wishes successfully updated.");
+        document.location='<?php $_SERVER['PHP_SELF'];?>';
+        </script>
+        <?php
+     }
+     
+     }
+     //query update
+     //ambil data pegawai
+     $row=mysqli_fetch_array(mysqli_query($conn, "select * from permintaan where id='$idupdate'"));
+     
+     //cek apakah ada yg akan dihapus
+     if($row!=null && $row['id']!=""){
+     ?>
+    <div id="popupEdit" class="popup" style="display: none;">
+        <form action="<?php $_SERVER['PHP_SELF'];?>" id="formPopup" name="update" method="post" enctype="multipart/form-data">
             <div class="judul">
                 Edit Wishes
             </div>
@@ -292,12 +299,11 @@ include "../functions/koneksi.php";
                 <table border="0">
                     <tr>
                         <td class="td1"  id="popupID">ID</td>
-                        <td class="td1"><input name="id" value="<?php echo $row['id'];?>" disabled></td>
+                        <td class="td1"><input type="text" name="id" id="popupID" value="<?php echo $row['id'];?>" disabled></td>
                     </tr>
                     <tr>
                         <td class="td1">Picture</td>
-                        <td class="td1" id="picture">
-                            <img src="<?php echo "../img/".$row['foto'];?>"><input type="file" name="foto" id="file" accept="image/png, image/jpeg, image/svg+xml"></td>
+                        <td class="td1" id="picture"><input type="file" name="foto" id="file" accept="image/png, image/jpeg, image/svg+xml"></td>
                     </tr>
                     <tr>
                         <td class="td1">Name</td>
@@ -309,47 +315,21 @@ include "../functions/koneksi.php";
             </div>
         </form>
     </div>
-
-    <!-- INSERT -->
     <?php
-    if(isset($_POST['insert'])){
-        $id=$_POST['id'];
-        $nama=$_POST['nama'];
+     }
+     ?>
 
-        if(isset($_FILES['foto']) && $_FILES['foto']['error']===UPLOAD_ERR_OK){
-            $foto=$_FILES['foto']['name'];
-            $upload=$_FILES['foto']['tmp_name']
-
-            if(move_uploaded_file($_FILES['foto']['tmp_name'], $upload)){
-                $insert="insert into permintaan (id, nama, foto) values('$id','$nama','$foto')";
-                $query=mysqli_query($conn, $insert);
-
-                if($query){
-                    echo "<script>alert('Wish has been successfully added.')</script>";
-                }else{
-                    echo "<script>alert('Failed to add wish.')</script>";
-                }
-            }else{
-                echo "<script>alert('Failed to upload image.')</script>";
-                
-            }
-        }else{
-            echo "<script>alert('Failed to upload image.')</script>";
-            
-            
-        }
-    }
-    ?>
+    
     <div id="popup1" class="popup" style="display: none;">
-        <form action="<?php $_SERVER['PHP_SELF'];?>" method="post" id="formPopup1">
+        <form name="insert" action="../functions/insertPermintaan.php" method="post" id="formPopup1" enctype="multipart/form-data">
             <div class="judul">
                 Add Wishes
             </div>
             <div class="isi">
                 <table border="0">
                     <tr>
-                        <td class="td1" id="popupContent1">ID</td>
-                        <td class="td1" id="id"><input type="text" name="id" id="id" placeholder="A1" maxlength=2 pattern="[A-Z][0-9]"></td>
+                        <td class="td1" id="popupContent1"></td>
+                        <td class="td1" id="id"><input type="hidden" name="id" id="id" ></td>
                     </tr>
                     <tr>
                         <td class="td1">Picture</td>
@@ -372,10 +352,9 @@ include "../functions/koneksi.php";
         }
 
         function closePopup() {
-            document.getElementById('popup').style.display = 'none';
+            document.getElementById('popupEdit').style.display = 'none';
         }
-    </script>
-    <script>
+
         function tambahPopup() {
             document.getElementById('popup1').style.display = 'flex';
         }

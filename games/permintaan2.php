@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "../functions/koneksi.php";
 ?>
 
 <!DOCTYPE html>
@@ -166,58 +167,26 @@ session_start();
     </div>
     <div>
         <table>
+            <?php
+            $query="select * from permintaan;";
+            $sql=mysqli_query($conn, $query);
+            while($result=mysqli_fetch_assoc($sql)){
+                echo "
             <tr>
-                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
-                    <div class="depan">
-                        <h1>Power</h1>
+                <td>
+                    <div class='kotakpilihan1' onclick='flipkotakpilihan1(this)'>
+                    <div class='depan'>
+                        <h1>$result[nama]</h1>
                     </div>
-                    <div class="belakang">
-                        <img src="../img/aladdin.jpg" alt="">
+                    <div class='belakang'>
+                        <img src='../img/$result[foto]' alt=''>
                     </div>
-                </div></td>
-                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
-                    <div class="depan">
-                        <h1>Power</h1>
                     </div>
-                    <div class="belakang">
-                        <img src="../img/aladdin.jpg" alt="">
-                    </div>
-                </div></td>
-                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
-                    <div class="depan">
-                        <h1>Power</h1>
-                    </div>
-                    <div class="belakang">
-                        <img src="../img/aladdin.jpg" alt="">
-                    </div>
-                </div></td>
-            </tr>
-            <tr>
-                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
-                    <div class="depan">
-                        <h1>Power</h1>
-                    </div>
-                    <div class="belakang">
-                        <img src="../img/aladdin.jpg" alt="">
-                    </div>
-                </div></td>
-                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
-                    <div class="depan">
-                        <h1>Power</h1>
-                    </div>
-                    <div class="belakang">
-                        <img src="../img/aladdin.jpg" alt="">
-                    </div>
-                </div></td>
-                <td><div class="kotakpilihan1" onclick="flipkotakpilihan1(this)">
-                    <div class="depan">
-                        <h1>Power</h1>
-                    </div>
-                    <div class="belakang">
-                        <img src="../img/aladdin.jpg" alt="">
-                    </div>
-                </div></td>
-            </tr>
+                </td>
+                
+            </tr>";
+            }
+        ?>
             
         </table>
     </div>

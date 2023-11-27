@@ -3,17 +3,16 @@ session_start();
 include "functions/koneksi.php";
 include "functions/user.php";
 
-if(isset($_SESSION['user'])){
-    header("location:login.php");
-}
-
+//validasi
 if(isset($_POST['regist'])){
     $username=$_POST['username'];
     $password=$_POST['password'];
 
+    //trim =menghilangkan jarak kosong di awal dan akhir string
     if(!empty(trim($username)) && !empty(trim($password))){
         if(cek_usn($username)==0){
 
+        //masukin ke db
         if(register_user($username, $password)){
             echo "<script>
             alert('Account successfully added.');
@@ -21,17 +20,19 @@ if(isset($_POST['regist'])){
             </script>";
             
         }else{
-            echo "gagal daftar";
+            echo "<script>
+            alert('Failed to register this account.');
+            document.location='register.php';
+            </script>";
         }
 
     }else{
-        echo "username sudah ada";
-    }
-}else{
-    echo "gabole kosong";
-}
-}
-
+        echo "<script>
+            alert('Username already');
+            document.location='register.php';
+            </script>";
+        }
+    }}
 ?>
 
 <!DOCTYPE html>
