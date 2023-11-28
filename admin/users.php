@@ -260,11 +260,11 @@ include "../functions/user.php";
                 <table border="0">
                     <tr>
                         <td class="td1" id="popupContent1">Username</td>
-                        <td class="td1" id="username"><input type="text" name="username" id="username"></td>
+                        <td class="td1" id="username"><input type="text" name="username" id="username" required></td>
                     </tr>
                     <tr>
                         <td class="td1">Password</td>
-                        <td class="td1"><input type="password" name="password" id="password"></td>
+                        <td class="td1"><input type="password" name="password" id="password" required></td>
                     </tr>
                     <tr>
                         <td class="td1">Role</td>

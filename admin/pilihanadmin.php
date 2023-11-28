@@ -238,12 +238,12 @@ if(isset($_GET['id'])){
     <title>Wishes</title>
 </head>
 <body>
-    <div class="navbar">
+<div class="navbar">
         <div class="isinavbar">
             <a href="berandaadmin.php">Home</a>
         </div>
         <div class="isinavbar">
-            <a href="storyadmin.php">Story</a>
+            <a class="storyadmin.php">Story</a>
         </div>
         <div class="isinavbar">
             <a href="users.php">Users</a>
@@ -297,11 +297,11 @@ if(isset($_GET['id'])){
                     </tr>
                     <tr>
                         <td class="td1">Picture</td>
-                        <td class="td1" id="picture"><input type="file" name="foto" accept="image/jpeg, image/png, image/svg+xml" id="file"></td>
+                        <td class="td1" id="picture"><input type="file" name="foto" accept="image/jpeg, image/png, image/svg+xml" id="file" required></td>
                     </tr>
                     <tr>
                         <td class="td1">Name</td>
-                        <td class="td1" id="name"><input name="nama" type="text"></td>
+                        <td class="td1" id="name"><input name="nama" type="text" required></td>
                     </tr>
                 </table>
                 <button name="insert" type="submit">Save</button>

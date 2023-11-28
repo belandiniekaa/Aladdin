@@ -93,7 +93,7 @@ if(isset($_POST['cancel'])){
 
         body {
             background-color: #0c133f;
-            background-image: url('../img/Untitled50_20231114055535.png');
+            background-image: url('../../img/Untitled50_20231114055535.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -250,24 +250,29 @@ if(isset($_POST['cancel'])){
             color: white;
         }
     </style>
+    <script>
+        function confirmCancel() {
+            return confirm("Are you sure you want to cancel? Any unsaved changes will be lost.");
+        }
+    </script>
     <title>Wishes</title>
 </head>
 <body>
     <div class="navbar">
         <div class="isinavbar">
-            <a href="berandaadmin.php">Home</a>
+            <a href="../../berandaadmin.php">Home</a>
         </div>
         <div class="isinavbar">
-            <a href="storyadmin.php">Story</a>
+            <a href="../../storyadmin.php">Story</a>
         </div>
         <div class="isinavbar">
             <a class="disini">Users</a>
         </div>
         <div class="isinavbar">
-            <a href="pilihanadmin.php">Wishes</a>
+            <a href="../../pilihanadmin.php">Wishes</a>
         </div>
         <div class="isinavbar">
-            <a href="aboutusadmin.php">About Us</a>
+            <a href="../../aboutusadmin.php">About Us</a>
         </div>
     </div>
     <?php
@@ -282,7 +287,7 @@ if(isset($_POST['cancel'])){
                 <table border="0">
                     <tr>
                         <td class="td1" id="popupID">Username</td>
-                        <td class="td1"><input type="text" name="username" value="<?php echo $row['username'];?>"></td>
+                        <td class="td1"><input type="text" name="username" value="<?php echo $row['username'];?>" required></td>
                     </tr>
                     <tr>
                         <td class="td1">Role</td>
@@ -296,7 +301,7 @@ if(isset($_POST['cancel'])){
                             <button name="update" type="submit">Save</button>
                         </td>
                         <td>
-                            <button name="cancel" type="submit">Cancel</button>
+                            <button name="cancel" type="submit" onclick="return confirmCancel();">Cancel</button>
                         </td>
                     </tr>
                 </table>
