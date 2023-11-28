@@ -9,7 +9,6 @@ include "../functions/user.php";
 
 ?>
 
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -82,19 +81,17 @@ include "../functions/user.php";
         }
 
         .join{
-            width: 70px;
-            height: 40px;
+            width: 80px;
+            height: 30px;
             text-align: center;
             justify-content: center;
+            align-items: center;
             background-color: #f2cc81;
             border-radius: 20px;
-            margin-top: 25px;
-            color: black;
-            font-family: alata;
-            font-size: 27px;
-            font-weight: 700;
+            margin-top: 22px;
+            margin-right: 10px;
         }
-
+        
         .join:hover{
             background-color: white;
         }
@@ -105,13 +102,23 @@ include "../functions/user.php";
         .text{
             padding: 135px 0px 0px 350px ;
         }
+        
+        .joinnya{
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .kecil{
+            text-align: center;
+            color: white;
+            font-family: alata;
+            font-size: 18px;
+            font-weight: 700;
+        }
     </style>
     <title>Beranda</title>
 </head>
 <body>
-<button>
-        <a href="../logout.php" style="color: #f4a763; font-size: 18px;">Logout</a>
-    </button>
     <div class="navbar">
         <div class="isinavbar">
             <a class="disini">Home</a>
@@ -134,14 +141,16 @@ include "../functions/user.php";
             <p>
                 Embark on a magical <br> journey and discover <br> a whole new world! <br> Ready to join my adventure?
             </p>
-            <div class="join">
-                <a href="../login.php">Join</a>
-            </div>
+            <div class="joinnya">
+                <div class="join">
+                    <a href="../login.php" class="kecil">Join</a>
+                </div>
+                <div class="join">
+                    <a href="../logout.php" class="kecil">Logout</a>
+                </div>
+            </div>            
         </div>
     </div>
-    <button>
-        <a href="../logout.php" style="color: #f4a763; font-size: 18px;">Logout</a>
-    </button>
 </body>
 </html>
 

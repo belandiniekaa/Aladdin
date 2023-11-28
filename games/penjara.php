@@ -93,6 +93,11 @@ include "../functions/user.php";
         }
 
     </style>
+    <script>
+        setTimeout(function(){
+                    window.location.href = '../beranda.php';
+                }, 10000);
+    </script>
     <title>Finish</title>
 </head>
 <body>
