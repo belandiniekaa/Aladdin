@@ -1,10 +1,8 @@
 <?php
 include "../functions/koneksi.php";
-
-$id = isset($_GET['id']) ? $_GET['id'] : null;
-
-$select ="select * from permintaan where id = '$id'";
-$query = mysqli_query($conn, $select);
+$id = $_GET['id'];
+$read ="SELECT * FROM permintaan WHERE id = '$id'";
+$query = mysqli_query($conn, $read);
 $row = mysqli_fetch_array($query);
 if(isset($_POST['update'])){
     $id = $_POST['id'];
@@ -15,8 +13,8 @@ if(isset($_POST['update'])){
         $uploadPath = $uploadDir . $foto;
 
         if (move_uploaded_file($_FILES["foto"]["tmp_name"], $uploadPath)) {
-            $update = "update permintaan set nama='$nama', foto='$foto' where id='$id'";
-            
+            $update = "update permintaan set id='$id', nama='$nama', foto='$foto' where id='$id'";
+            $query = mysqli_query($conn, $sql);
         } else {
             ?>
             <script>
@@ -26,26 +24,22 @@ if(isset($_POST['update'])){
             </script>
             <?php
         }
-    } else {
-        $update = "update permintaan set nama='$nama' where id='$id'";
-        
+    }
+    if($query){
+            ?>
+            <script>
+                alert("Anda berhasil mengupdate data");
+                document.location='pilihanadmin.php';
+            </script>
+            <?php
+        }else{
+            ?>
+            <script>
+                alert("Anda gagal mengupdate data");
+                document.location='pilihanadmin.php';
+            </script>
+            <?php
+        }
     }
 
-    
-    $query = mysqli_query($conn, $update);
-    if($query){
-        ?>
-        <script>
-            alert("Wishes has been updated.");
-            document.location='pilihanadmin.php';
-        </script>
-        <?php
-    }else{
-        ?>
-        <script>
-            alert("Failed to update data.");
-            document.location='pilihanadmin.php';
-        </script>
-        <?php
-    }
-}?>
+    ?>

@@ -9,7 +9,6 @@ if(!cek_role($_SESSION['user'])){
     header("location:../games/carilampu.php");
         exit();
     }
-
 if(isset($_GET['user_id'])) {
     $user_id = $_GET['user_id'];
     if ($user_id!="") {

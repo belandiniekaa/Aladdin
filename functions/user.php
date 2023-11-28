@@ -7,6 +7,7 @@ function register_user($username, $password){
     //mencegah sql injection
     $username=escape($username);
     $password=escape($password);
+    
 
     //enkripsi
     $password=password_hash($password, PASSWORD_DEFAULT);

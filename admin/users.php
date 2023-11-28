@@ -7,46 +7,8 @@ if (!isset($_SESSION['user'])) {
 
 include "../functions/koneksi.php";
 include "../functions/user.php";
-if (!cek_role($_SESSION['user'])) {
-    header("location:../games/carilampu.php");
-    exit();
-}
 
-// Update process
-if (isset($_POST['update'])) {
-    $user_id = $_POST['user_id'];
-    $username = $_POST['username'];
-    $role = $_POST['role'];
 
-    $update = mysqli_query($conn, "UPDATE users SET username='$username', role='$role' WHERE user_id=$user_id");
-
-    if ($update) {
-        header("Location: users.php");
-        exit();
-    } else {
-        echo "Error updating record: " . mysqli_error($conn);
-    }
-}
-
-/// Fetch user data for pre-filling the form
-if (isset($_GET['user_id'])) {
-    $user_id = $_GET['user_id'];
-    $result = mysqli_query($conn, "SELECT * FROM users WHERE user_id=$user_id");
-
-    // Check if user data is found
-    if ($user_data = mysqli_fetch_array($result)) {
-        $username = $user_data['username'];
-        $role = $user_data['role'];
-    } else {
-        // Handle the case when no user data is found
-        header("Location: users.php");
-        exit();
-    }
-} else {
-    // Handle the case when user_id is not provided in the URL
-    header("Location: users.php");
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -268,7 +230,7 @@ if (isset($_GET['user_id'])) {
             <td class='td username isi'><?php echo $row['username'];?></td>
             <td class='td role isi'><?php echo $row['role'];?></td>
             <td class='td'>
-                <img src='../img/edit (1).png' alt='' class='edit' onclick='editPopup()'></a>
+            <a href='updateUser.php?user_id=<?php echo $row['user_id'];?>'><img src='../img/edit (1).png' alt='' class='edit' ></a>
             </td>
             <td class='td'><a href='hapusUser.php?user_id=<?php echo $row['user_id'];?>'><img src='../img/trash (1).png' alt='' class='edit' ></a></td>
         </tr><?php
@@ -280,24 +242,36 @@ if (isset($_GET['user_id'])) {
     </table>
 
     <!--edit form-->
+    <?php 
+   $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : null;
+   
+   if ($user_id) {
+       $read = "SELECT * FROM  WHERE user_id = '$user_id'";
+       $query = mysqli_query($conn, $read);
+       $row = mysqli_fetch_array($query);
+
+       if ($row) {?>
     <div id="popup" class="popup" style="display: none;">
-        <form name="update" action="users.php" method="post" id="formPopup">
+    
+           
+           <form name="update" action="updateUser.php" method="post" id="formPopup" enctype="multipart/form-data">
+           
             <div class="judul">
                 Edit User
             </div>
-            <input name="user_id" type="hidden" id="popupID" value="<?php echo $user_id; ?>">
+            <input name="user_id" type="hidden" id="popupID" value="<?php echo $row['user_id']; ?>">
             <div class="isi">
                 <table border="0">
                     <tr>
                         <td class="td1">Username</td>
-                        <td class="td1" id="username"><input type="text" name="username" id="username" value="<?php echo $username; ?>"></td>
+                        <td class="td1" id="username"><input type="text" name="username" id="username" value="<?php echo $row['username']; ?>"></td>
                     </tr>
                     <tr>
                         <td class="td1">Role</td>
                         <td class="td1" id="role">
                             <select name="role" id="role">
-                                <option value="Admin" <?php echo ($role == 'Admin') ? 'selected' : ''; ?>>Admin</option>
-                                <option value="User" <?php echo ($role == 'User') ? 'selected' : ''; ?>>User</option>
+                                <option value="Admin" <?php echo ($row['role'] == 'Admin') ? 'selected' : ''; ?>>Admin</option>
+                                <option value="User" <?php echo ($row['role'] == 'User') ? 'selected' : ''; ?>>User</option>
                             </select>
                         </td>
                     </tr>
@@ -306,7 +280,16 @@ if (isset($_GET['user_id'])) {
                 <button type="button" onclick="closePopup()">Cancel</button>
             </div>
         </form>
-    </div>
+          
+          
+</div> <?php
+       } else {
+           echo "User not found.";
+       }
+   } else {
+       echo "Invalid user_id parameter.";
+   }
+?>
 
     <div id="popup1" class="popup" style="display: none;">
         <form name="insert" action="../functions/insertUser.php" method="post" id="formPopup1">
@@ -341,7 +324,7 @@ if (isset($_GET['user_id'])) {
     </div>
     <script>
         function editPopup(id) {
-            document.getElementById('popupID').innerText = id;
+            document.getElementById('popupID').value = id;
             document.getElementById('popup').style.display = 'flex';
         }
 

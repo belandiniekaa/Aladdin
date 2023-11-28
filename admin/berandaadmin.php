@@ -6,10 +6,7 @@ if(!isset($_SESSION['user'])){
 include "../functions/koneksi.php";
 include "../functions/user.php";
 
-if(!cek_role($_SESSION['user'])){
-    header("location:../games/carilampu.php");
-        exit();
-    }
+
 ?>
 
 
@@ -112,6 +109,9 @@ if(!cek_role($_SESSION['user'])){
     <title>Beranda</title>
 </head>
 <body>
+<button>
+        <a href="../logout.php" style="color: #f4a763; font-size: 18px;">Logout</a>
+    </button>
     <div class="navbar">
         <div class="isinavbar">
             <a class="disini">Home</a>

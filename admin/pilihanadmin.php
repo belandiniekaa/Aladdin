@@ -1,6 +1,5 @@
 <?php 
 session_start();
-var_dump($_POST);
 
 if(!isset($_SESSION['user'])){
     header("location:../login.php");
@@ -9,10 +8,7 @@ if(!isset($_SESSION['user'])){
 include "../functions/koneksi.php";
 include "../functions/user.php";
 
-if(!cek_role($_SESSION['user'])){
-    header("location:../games/carilampu.php");
-        exit();
-    }
+
 
 ?>
 <!DOCTYPE html>
@@ -238,14 +234,23 @@ if(!cek_role($_SESSION['user'])){
                 <td class='td untukgambar isi'><img src='../img/$row[foto]' alt='' class='gambar'></td>
                 <td class='td name isi'>$row[nama]</td>
                 <td class='td'>
-                <img src='../img/edit (1).png' alt='' class='editpilihan' onclick=\"editPopup('{$row['id']}')\">
+                <img src='../img/edit (1).png' alt='' class='editpilihan' onclick=editPopup("$row['id']")>
                 </td>
                 <td class='td'><a href='deletePermintaan.php?id=$row[id]'><img src='../img/trash (1).png' alt='' class='editpilihan'></td>
             </tr>";
             }
     ?>
     </table>
-    
+    <?php 
+   $id = isset($_GET['id']) ? $_GET['id'] : null;
+   
+   if ($id) {
+       $read = "SELECT * FROM  WHERE id = '$id'";
+       $query = mysqli_query($conn, $read);
+       $row = mysqli_fetch_array($query);
+
+       if ($row['id']!="")  {
+        ?>
 <div id="popupEdit" class="popup" style="display: none;">
 <form action="updatePermintaan.php" id="formPopup" name="update" method="post" enctype="multipart/form-data" onsubmit="editPopup(document.getElementById('popupInputID').value);">
 
@@ -274,6 +279,13 @@ if(!cek_role($_SESSION['user'])){
         </div>
     </form>
 </div>
+<?php
+         } else {
+            echo "User not found.";
+        }
+    } else {
+        echo "Invalid user_id parameter.";
+    }?>
 
 
     <div id="popup1" class="popup" style="display: none;">
