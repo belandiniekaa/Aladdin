@@ -1,12 +1,19 @@
 
 <?php
 session_start();
-if(!isset($_SESSION['user'])){
-    header("location:../login.php");
-}
 
-include "koneksi.php";
-include "user.php";
+if(!isset($_SESSION['user'])){
+    header("location:../../login.php");
+    if(cek_role($_SESSION['user'])){
+        header("location:../games/carilampu.php");
+        exit();
+    }else{
+        header("location:../berandaadmin.php");
+        exit();
+    }
+}
+include "../../functions/koneksi.php";
+include "../../functions/user.php";
 
 
 
@@ -19,14 +26,14 @@ if (isset($_POST['insert'])) {
         ?>
         <script>
         alert('Username and password are required.');
-        document.location='../admin/users.php';
+        document.location='../users.php';
         </script>
         <?php
     }else{
         if(cek_usn($username)!=0){
             ?>
             <script>alert('Username already exists.');
-            document.location='../admin/users.php';
+            document.location='../users.php';
             </script>
             <?php
         }else{
@@ -36,7 +43,7 @@ if (isset($_POST['insert'])) {
             ?>
             <script>
                 alert("User has been successfully added.");
-                document.location = '../admin/users.php';
+                document.location = '../users.php';
             </script>
             <?php
         }

@@ -1,4 +1,69 @@
-<!DOCTYPE html>
+<?php
+session_start();
+
+if(!isset($_SESSION['user'])){
+    header("location:../../login.php");
+    if(cek_role($_SESSION['user'])){
+        header("location:../../games/carilampu.php");
+        exit();
+    }else{
+        header("location:../admin/berandaadmin.php");
+        exit();
+    }
+}
+include "../../functions/koneksi.php";
+include "../../functions/user.php";
+
+$id=isset($_GET['id'])?$_GET['id']:'';
+if(isset($_POST['update'])){
+    $id=$_POST['id'];
+    $nama=$_POST['nama'];
+
+    $row = mysqli_fetch_array(mysqli_query($conn, "select * from permintaan where id='$id' "));
+    
+    if($_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+        $foto = $_FILES['foto']['name'];
+        $uploadDir = '../../img';
+        $uploadPath = $uploadDir . $foto;
+
+        if (move_uploaded_file($_FILES["foto"]["tmp_name"], $uploadPath)) {
+            if(!empty($row['foto'])){
+                unlink($uploadDir. $row['foto']);
+            }
+            $update="update permintaan set nama='$nama', foto='$foto' where id='$id' ";
+        } else {
+            ?>
+            <script>alert("Failed to upload file.");
+            header("location:../pilihanadmin.php");
+            </script>
+            <?php
+        }
+    }else{
+        //Jika foto tidak diubah
+        $update = "update permintaan set nama='$nama' where id='$id'";
+    }
+
+    $query=mysqli_query($conn, $update);
+    if($query){
+        ?>
+        <script>
+            alert("The wish updated successfully.");
+            document.location='../pilihanadmin.php';
+        </script>
+        <?php
+    }
+}
+if(isset($_POST['cancel'])){
+    header("location:../pilihanadmin.php");
+}
+
+$row=mysqli_fetch_array(mysqli_query($conn, "select * from permintaan where id='$id' "));
+
+if($row!=null && $row['id']!=""){
+    ?>
+
+    
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -196,64 +261,62 @@
             width: 100%;
             height: 400px;
         }
-
-        option{
-            width: 70px;
-            background-color: #0c133f;
-            color: white;
-        }
     </style>
     <title>Wishes</title>
 </head>
 <body>
     <div class="navbar">
         <div class="isinavbar">
-            <a href="berandaadmin.php">Home</a>
+            <a href="../berandaadmin.php">Home</a>
         </div>
         <div class="isinavbar">
-            <a href="storyadmin.php">Story</a>
+            <a href="../storyadmin.php">Story</a>
         </div>
         <div class="isinavbar">
-            <a class="disini">Users</a>
+            <a href="../users.php">Users</a>
         </div>
         <div class="isinavbar">
-            <a href="pilihanadmin.php">Wishes</a>
+            <a class="disini">Wishes</a>
         </div>
         <div class="isinavbar">
-            <a href="aboutusadmin.php">About Us</a>
+            <a href="../aboutusadmin.php">About Us</a>
         </div>
     </div>
-
+    
     <div class="luar">
-        <form action="updatePermintaan.php" id="formPopup" name="update" method="post" enctype="multipart/form-data">
+   
+        <form method="post" action="updatepermintaan.php" id="formPopup" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                    
             <div class="judul">
-                Edit Users
+                Edit Wishes
             </div>
             <div class="isi">
                 <table border="0">
                     <tr>
-                        <td class="td1" id="popupID">Username</td>
-                        <td class="td1"><input type="text" name="username"></td>
+                        <td class="td1">Picture</td>
+                        <td class="td1" id="picture"><input type="file" name="foto" id="file" accept="image/png, image/jpeg, image/svg+xml"></td>
                     </tr>
                     <tr>
-                        <td class="td1">Role</td>
-                        <td class="td1" id="role"><select name="role" id="role">
-                            <option value="Admin">Admin</option>
-                            <option value="User">User</option>
-                        </select></td>
+                        <td class="td1">Name</td>
+                        <td class="td1" id="name"><input name="nama" type="text" value="<?php echo $row['nama'];?>"></td>
                     </tr>
                     <tr>
                         <td>
-                            <button name="update" type="submit">Cancel</button>
+                            <button name="update" type="submit">Save</button>
                         </td>
                         <td>
-                            <button name="cancel" type="submit">Save</button>
+                            <button name="cancel" type="submit">Cancel</button>
                         </td>
                     </tr>
                 </table>
             </div>
         </form>
+        
     </div>
 </div>
 </body>
 </html>
+<?php
+    }
+    ?>

@@ -1,9 +1,18 @@
 <?php
 session_start();
+
 if(!isset($_SESSION['user'])){
-    header("location:../login.php");
+    header("location:../../login.php");
+    if(cek_role($_SESSION['user'])){
+        header("location:../games/carilampu.php");
+        exit();
+    }else{
+        header("location:../admin/berandaadmin.php");
+        exit();
+    }
 }
-include "koneksi.php";
+include "../../functions/koneksi.php";
+include "../../functions/user.php";
 
 
 if (isset($_POST['insert'])) {
@@ -24,7 +33,7 @@ if (isset($_POST['insert'])) {
     // Periksa error pengunggahan file
     if ($_FILES['foto']['error'] === UPLOAD_ERR_OK) {
         $foto = $_FILES['foto']['name'];
-        $uploadDir = '../img/';
+        $uploadDir = '../../img/';
         $uploadPath = $uploadDir . $foto;
 
         // Pindahkan file ke direktori yang diinginkan
@@ -36,15 +45,25 @@ if (isset($_POST['insert'])) {
             if ($query) {
                 ?>
                 <script>
-                    alert("Wishes successfully added.");
-                    document.location = '../admin/pilihanadmin.php';
+                    alert("The wish has been added successfully.");
+                    document.location = '../pilihanadmin.php';
                 </script>
                 <?php
             } else {
-                echo mysqli_error($conn);
+                ?>
+                <script>
+                    alert("Failed to add wish.");
+                    document.location = '../pilihanadmin.php';
+                </script>
+                <?php
             }
         } else {
-            echo "Failed to upload file.";
+            ?>
+            <script>
+                alert("Failed to upload file.");
+                document.location = 'insertPermintaan.php';
+            </script>
+            <?php
         }
     } 
 }

@@ -1,14 +1,19 @@
 <?php
 session_start();
 if(!isset($_SESSION['user'])){
-    header("location:../login.php");
-}
-include "../functions/koneksi.php";
-include "../functions/user.php";
-if(!cek_role($_SESSION['user'])){
-    header("location:../games/carilampu.php");
+    header("location:../../login.php");
+    if(cek_role($_SESSION['user'])){
+        header("location:../games/carilampu.php");
+        exit();
+    }else{
+        header("location:../berandaadmin.php");
         exit();
     }
+}
+include "../../functions/koneksi.php";
+include "../../functions/user.php";
+
+
 if(isset($_GET['user_id'])) {
     $user_id = $_GET['user_id'];
     if ($user_id!="") {
@@ -17,7 +22,7 @@ if(isset($_GET['user_id'])) {
         $query = mysqli_query($conn, $hapus);
         if($query){
             ?>
-            <script>alert("User has been successfully deleted.");window.location='users.php';</script>
+            <script>alert("User has been successfully deleted.");window.location='../users.php';</script>
             <?php
         }
     }

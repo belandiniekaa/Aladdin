@@ -1,12 +1,20 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user'])) {
+if(!isset($_SESSION['user'])){
     header("location:../login.php");
+    if(cek_role($_SESSION['user'])){
+        header("location:../games/carilampu.php");
+        exit();
+    }else{
+        header("location:../admin/berandaadmin.php");
+        exit();
+    }
 }
 
 include "../functions/koneksi.php";
 include "../functions/user.php";
+
 
 
 ?>
@@ -230,9 +238,9 @@ include "../functions/user.php";
             <td class='td username isi'><?php echo $row['username'];?></td>
             <td class='td role isi'><?php echo $row['role'];?></td>
             <td class='td'>
-            <a href='updateUser.php?user_id=<?php echo $row['user_id'];?>'><img src='../img/edit (1).png' alt='' class='edit' ></a>
+            <a href='crud/updateusers.php?user_id=<?php echo $row['user_id'];?>'><img src='../img/edit (1).png' alt='' class='edit' ></a>
             </td>
-            <td class='td'><a href='hapusUser.php?user_id=<?php echo $row['user_id'];?>'><img src='../img/trash (1).png' alt='' class='edit' ></a></td>
+            <td class='td'><a href='crud/hapusUser.php?user_id=<?php echo $row['user_id'];?>'><img src='../img/trash (1).png' alt='' class='edit' ></a></td>
         </tr><?php
         $count=$count+1;
             }
@@ -241,30 +249,9 @@ include "../functions/user.php";
         ?>
     </table>
 
-    <!--edit form-->
-    <?php 
-   $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : null;
-   
-   if ($user_id) {
-       $read = "SELECT * FROM  WHERE user_id = '$user_id'";
-       $query = mysqli_query($conn, $read);
-       $row = mysqli_fetch_array($query);
-
-       if ($row) {?>
-
-          
-          
-</div> <?php
-       } else {
-           echo "User not found.";
-       }
-   } else {
-       echo "Invalid user_id parameter.";
-   }
-?>
-
+    </div>
     <div id="popup1" class="popup" style="display: none;">
-        <form name="insert" action="../functions/insertUser.php" method="post" id="formPopup1">
+        <form name="insert" action="crud/insertUser.php" method="post" id="formPopup1">
             <div class="judul">
                 Add User
             </div>

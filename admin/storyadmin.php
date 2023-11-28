@@ -1,15 +1,21 @@
 <?php
 session_start();
+
 if(!isset($_SESSION['user'])){
     header("location:../login.php");
+    if(cek_role($_SESSION['user'])){
+        header("location:../games/carilampu.php");
+        exit();
+    }else{
+        header("location:../admin/berandaadmin.php");
+        exit();
+    }
 }
 
 include "../functions/koneksi.php";
 include "../functions/user.php";
-if(!cek_role($_SESSION['user'])){
-    header("location:../games/carilampu.php");
-        exit();
-    }
+
+
 
 ?>
 

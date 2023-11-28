@@ -3,13 +3,55 @@ session_start();
 
 if(!isset($_SESSION['user'])){
     header("location:../login.php");
+    if(cek_role($_SESSION['user'])){
+        header("location:../games/carilampu.php");
+        exit();
+    }else{
+        header("location:../admin/berandaadmin.php");
+        exit();
+    }
 }
 
 include "../functions/koneksi.php";
 include "../functions/user.php";
 
 
+//delete
 
+if(isset($_GET['id'])){
+	$id=$_GET['id'];
+	if($id!=""){
+        $result=mysqli_query($conn, "select * from permintaan where id='$id'");
+        if($row=mysqli_fetch_array($result)){
+            ?>
+        <script>
+            var confirmation=confirm("Are you sure you want to delete <?php echo $row['nama'];?> ?");
+            if(confirmation){
+                <?php
+                $filefoto=$row['foto'];
+                unlink($filefoto);
+                $hapus="delete from permintaan where id='$id' ";
+                $query=mysqli_query($conn, $hapus);
+                if($query){
+                    ?>
+                    alert("Wishes successfully deleted.");
+                    window.location='pilihanadmin.php';
+                    <?php
+                }else{
+                    ?>
+                    alert("Failed to delete the wish. Please check your permissions and try again.");
+                    window.location='pilihanadmin.php';
+                    <?php
+                }
+                ?>
+                }else{
+                    window.location='pilihanadmin.php';
+                }
+                </script>
+                <?php
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -234,62 +276,16 @@ include "../functions/user.php";
                 <td class='td untukgambar isi'><img src='../img/$row[foto]' alt='' class='gambar'></td>
                 <td class='td name isi'>$row[nama]</td>
                 <td class='td'>
-                <img src='../img/edit (1).png' alt='' class='editpilihan' onclick=editPopup("$row['id']")>
+                <a href='crud/updatepermintaan.php?id=$row[id]'><img src='../img/edit (1).png' alt='' class='editpilihan' ><a/>
                 </td>
-                <td class='td'><a href='deletePermintaan.php?id=$row[id]'><img src='../img/trash (1).png' alt='' class='editpilihan'></td>
+                <td class='td'><a href='pilihanadmin.php?id=$row[id]'><img src='../img/trash (1).png' alt='' class='editpilihan' ></td>
             </tr>";
             }
     ?>
     </table>
-    <?php 
-   $id = isset($_GET['id']) ? $_GET['id'] : null;
-   
-   if ($id) {
-       $read = "SELECT * FROM  WHERE id = '$id'";
-       $query = mysqli_query($conn, $read);
-       $row = mysqli_fetch_array($query);
-
-       if ($row['id']!="")  {
-        ?>
-<div id="popupEdit" class="popup" style="display: none;">
-<form action="updatePermintaan.php" id="formPopup" name="update" method="post" enctype="multipart/form-data" onsubmit="editPopup(document.getElementById('popupInputID').value);">
-
-        <div class="judul">
-            Edit Wishes
         </div>
-        <div class="isi">
-            <table border="0">
-                <tr>
-                    <td class="td1" id="popupID"><?php echo $id;?></td>
-                    <td class="td1"><input type="hidden" name="id" id="popupInputID" value="<?php echo $row['id'];?>"></td>
-                </tr>
-                <tr>
-                    <td class="td1">Picture</td>
-                    <td class="td1" id="picture"><input type="file" name="foto" id="file" accept="image/png, image/jpeg, image/svg+xml"></td>
-                </tr>
-                <tr>
-                    <td class="td1">Name</td>
-                    <td class="td1" id="name"><input name="nama" type="text" value="<?php echo $row['nama']; ?>"></td>
-
-                </tr>
-                
-            </table>
-            <button name="update" type="submit">Save</button>
-            <button type="button" onclick="closePopup()">Cancel</button>
-        </div>
-    </form>
-</div>
-<?php
-         } else {
-            echo "User not found.";
-        }
-    } else {
-        echo "Invalid user_id parameter.";
-    }?>
-
-
     <div id="popup1" class="popup" style="display: none;">
-        <form name="insert" action="../functions/insertPermintaan.php" method="post" id="formPopup1" enctype="multipart/form-data">
+        <form name="insert" action="crud/insertPermintaan.php" method="post" id="formPopup1" enctype="multipart/form-data">
             <div class="judul">
                 Add Wishes
             </div>
