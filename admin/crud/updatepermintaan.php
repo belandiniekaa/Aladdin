@@ -1,18 +1,11 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['user'])){
-    header("location:../../login.php");
-    if(cek_role($_SESSION['user'])){
-        header("location:../../games/carilampu.php");
-        exit();
-    }else{
-        header("location:../admin/berandaadmin.php");
-        exit();
-    }
+if(!isset($_SESSION['login'])){
+    header('location:../../index.php');
 }
+
 include "../../functions/koneksi.php";
-include "../../functions/user.php";
 
 $id=isset($_GET['id'])?$_GET['id']:'';
 if(isset($_POST['update'])){
@@ -63,7 +56,7 @@ if($row!=null && $row['id']!=""){
     ?>
 
     
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

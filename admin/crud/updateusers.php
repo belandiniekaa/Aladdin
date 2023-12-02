@@ -1,18 +1,11 @@
 <?php 
 session_start();
 
-if(!isset($_SESSION['user'])){
-    header("location:../../login.php");
-    if(cek_role($_SESSION['user'])){
-        header("location:../games/carilampu.php");
-        exit();
-    }else{
-        header("location:../admin/berandaadmin.php");
-        exit();
-    }
+if(!isset($_SESSION['login'])){
+    header('location:../../index.php');
 }
+
 include "../../functions/koneksi.php";
-include "../../functions/user.php";
 
 $user_id=isset($_GET['user_id']) ? $_GET['user_id'] : null;
 $read="select * from users where user_id='$user_id'";

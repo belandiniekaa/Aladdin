@@ -1,5 +1,20 @@
 <?php
 session_start();
+include "functions/koneksi.php";
+include "functions/user.php";
+if(isset($_SESSION['login'])){
+    $username=$_SESSION['username'];
+    if(cek_role($username)){
+        $_SESSION['role']='Admin';
+        header("location:admin/berandaadmin.php");
+        exit;
+    }else{
+        $_SESSION['role']='User';
+        header("location:games/carilampu.php");
+        exit;
+    }
+}
+    
 ?>
 
 <!DOCTYPE html>

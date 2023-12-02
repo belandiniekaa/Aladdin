@@ -1,12 +1,21 @@
 <?php
 session_start();
-if(isset($_SESSION['user'])){
-    header("location:games/carilampu.php");
-    
-}
 
 include "functions/koneksi.php";
 include "functions/user.php";
+
+if(isset($_SESSION['login'])){
+    $username=$_SESSION['username'];
+    if(cek_role($username)){
+        $_SESSION['role']='Admin';
+        header("location:admin/berandaadmin.php");
+        exit;
+    }else{
+        $_SESSION['role']='User';
+        header("location:games/carilampu.php");
+        exit;
+    }
+}
 
 //validasi
 if(isset($_POST['login'])){
@@ -18,18 +27,23 @@ if(isset($_POST['login'])){
         if(cek_usn($username)!=0){
 
         if(cek_data($username, $password)){
-            $_SESSION['user']=$username;
-
-            if(cek_role($_SESSION['user'])){
-            header("location:admin/berandaadmin.php");
-            exit();
+            $_SESSION['login']=true;
+            $_SESSION['username']=$username;
+            $_SESSION['last_login_time']=time();
+            
+            if(cek_role($username)){
+                $_SESSION['role']='Admin';
+                header("location:admin/berandaadmin.php");
+                exit;
             }else{
+                $_SESSION['role']='User';
                 header("location:games/carilampu.php");
-                exit();
+                exit;
             }
+            
         }else{
             echo "<script>
-            alert('Data is incorrect.');
+            alert('Username or password does not match.');
             document.location='login.php';
             </script>";
         }
@@ -42,7 +56,7 @@ if(isset($_POST['login'])){
     }
 }else{
     echo "<script>
-    alert('Must be filled.');
+    alert('Username and password must be filled in.');
     document.location='login.php';
     </script>";
 }

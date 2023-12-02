@@ -1,44 +1,52 @@
 <?php
 session_start();
 
-if(isset($_SESSION['user'])){
-    header("location:login.php");
-    
-}
-
 include "functions/koneksi.php";
 include "functions/user.php";
+
+
+if(isset($_SESSION['login'])){
+    $username=$_SESSION['username'];
+    if(cek_role($username)){
+        $_SESSION['role']='Admin';
+        header("location:admin/berandaadmin.php");
+        exit;
+    }else{
+        $_SESSION['role']='User';
+        header("location:games/carilampu.php");
+        exit;
+    }
+}
 
 //validasi
 if(isset($_POST['regist'])){
     $username=$_POST['username'];
     $password=$_POST['password'];
 
-    //trim =menghilangkan jarak kosong di awal dan akhir string
     if(!empty(trim($username)) && !empty(trim($password))){
         if(cek_usn($username)==0){
 
-        //masukin ke db
         if(register_user($username, $password)){
             echo "<script>
-            alert('Account successfully added.');
+            alert('The account has been successfully added.');
             document.location='login.php';
             </script>";
             
         }else{
             echo "<script>
-            alert('Failed to register this account.');
+            alert('This account registration has failed.');
             document.location='register.php';
             </script>";
         }
 
     }else{
         echo "<script>
-            alert('Username already');
+            alert('The username already exists. Please use a different username.');
             document.location='register.php';
             </script>";
         }
-    }}
+    }
+}
 ?>
 
 <!DOCTYPE html>

@@ -1,20 +1,12 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['user'])){
-    header("location:../login.php");
-    if(!cek_role($_SESSION['user'])){
-        header("location:../games/carilampu.php");
-            exit();
-        }else{
-            header("location:../admin/berandaadmin.php");
-            exit();
-        }
-}
-
 include "../functions/koneksi.php";
-include "../functions/user.php";
 
+if(!isset($_SESSION['login'])){
+    header('location:../index.php');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -118,15 +110,7 @@ include "../functions/user.php";
     <button>
         <a href="../logout.php" style="color: #f4a763; font-size: 18px;">Logout</a>
     </button>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var hartaImage = document.getElementById('hartaImage');
-
-            hartaImage.addEventListener('click', function() {
-                alert("Cari yang bisa membantu kamu keluar dari gua ini!");
-            });
-        });
-    </script>
+    
     <br><br><br><br><br><br><br><br>
 </body>
 </html>
