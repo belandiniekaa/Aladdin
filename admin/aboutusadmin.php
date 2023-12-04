@@ -2,6 +2,7 @@
 session_start();
 
 include "../functions/koneksi.php";
+
 if(!isset($_SESSION['login'])){
     header('location:../index.php');
     exit;
@@ -55,14 +56,13 @@ if(!isset($_SESSION['login'])){
         }
 
         body{
-            background-image: url('../img/bgaladdin.jpeg');
+            background-color: #0c133f;
+            background-image: url('../img/Untitled50_20231114055535.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
             margin: 0;
             padding: 0;
             font-family: alata;

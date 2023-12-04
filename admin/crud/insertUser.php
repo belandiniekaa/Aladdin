@@ -1,8 +1,10 @@
-
 <?php
 session_start();
 
+
 include "../../functions/koneksi.php";
+include "../../functions/user.php";
+
 
 
 if (isset($_POST['insert'])) {

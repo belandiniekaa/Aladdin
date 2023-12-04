@@ -92,7 +92,7 @@ if(!isset($_SESSION['login'])){
     </style>
     <script>
         setTimeout(function(){
-                    window.location.href = '../beranda.php';
+                    window.location.href = '../logout.php';
                 }, 10000);
     </script>
     <title>Finish</title>
@@ -113,15 +113,7 @@ if(!isset($_SESSION['login'])){
         <h1>You are Greedy!</h1>
         <h3>You will replace the genie in the magic lamp forever</h3>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var hartaImage = document.getElementById('hartaImage');
-
-            hartaImage.addEventListener('click', function() {
-                alert("Cari yang bisa membantu kamu keluar dari gua ini!");
-            });
-        });
-    </script>
+    
     <br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br><br>

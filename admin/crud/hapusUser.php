@@ -2,6 +2,7 @@
 session_start();
 
 include "../../functions/koneksi.php";
+include "../../functions/user.php";
 
 
 if(isset($_GET['user_id'])) {

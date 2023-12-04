@@ -2,12 +2,11 @@
 session_start();
 
 include "../functions/koneksi.php";
+
 if(!isset($_SESSION['login'])){
     header('location:../index.php');
     exit;
 }
-
-
 ?>
 
 <html lang="en">
@@ -144,7 +143,7 @@ if(!isset($_SESSION['login'])){
             </p>
             <div class="joinnya">
                 <div class="join">
-                    <a href="../login.php" class="kecil">Join</a>
+                    <a href="../games/carilampu.php" class="kecil">Join</a>
                 </div>
                 <div class="join">
                     <a href="../logout.php" class="kecil">Logout</a>
@@ -154,4 +153,3 @@ if(!isset($_SESSION['login'])){
     </div>
 </body>
 </html>
-

@@ -7,15 +7,14 @@ if(isset($_SESSION['login'])){
     if(cek_role($username)){
         $_SESSION['role']='Admin';
         header("location:admin/berandaadmin.php");
-        exit;
     }else{
         $_SESSION['role']='User';
         header("location:games/carilampu.php");
-        exit;
     }
 }
     
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

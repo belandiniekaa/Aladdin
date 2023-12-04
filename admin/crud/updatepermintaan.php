@@ -55,7 +55,6 @@ $row=mysqli_fetch_array(mysqli_query($conn, "select * from permintaan where id='
 if($row!=null && $row['id']!=""){
     ?>
 
-    
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -29,7 +29,6 @@ if(isset($_POST['login'])){
         if(cek_data($username, $password)){
             $_SESSION['login']=true;
             $_SESSION['username']=$username;
-            $_SESSION['last_login_time']=time();
             
             if(cek_role($username)){
                 $_SESSION['role']='Admin';

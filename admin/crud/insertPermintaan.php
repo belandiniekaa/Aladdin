@@ -1,7 +1,9 @@
 <?php
 session_start();
 
+
 include "../../functions/koneksi.php";
+include "../../functions/user.php";
 
 
 if (isset($_POST['insert'])) {
@@ -22,7 +24,7 @@ if (isset($_POST['insert'])) {
     // Periksa error pengunggahan file
     if ($_FILES['foto']['error'] === UPLOAD_ERR_OK) {
         $foto = $_FILES['foto']['name'];
-        $uploadDir = '../../img/';
+        $uploadDir = '../../img';
         $uploadPath = $uploadDir . $foto;
 
         // Pindahkan file ke direktori yang diinginkan

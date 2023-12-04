@@ -246,6 +246,7 @@ if(isset($_POST['cancel'])){
     <script>
         function confirmCancel() {
             return confirm("Are you sure you want to cancel? Any unsaved changes will be lost.");
+            window.location='../admin/users.php';
         }
     </script>
     <title>Wishes</title>

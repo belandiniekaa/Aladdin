@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 //mendaftarkan user
 function register_user($username, $password){
@@ -55,11 +56,6 @@ function escape($data){
     return mysqli_real_escape_string($conn, $data);
 }
 
-//games redirect 
-function redirect_login($username){
-    header("location:../login.php");
-}
-
 //cek role
 function cek_role($username){
     global $conn;
@@ -76,4 +72,5 @@ function cek_role($username){
         return false;
     }
 }
+
 ?>

@@ -1,12 +1,6 @@
 <?php
 session_start();
 
-include "../functions/koneksi.php";
-
-if(!isset($_SESSION['login'])){
-    header('location:../index.php');
-    exit;
-}
 ?>
 
 <!DOCTYPE html>
@@ -94,7 +88,7 @@ if(!isset($_SESSION['login'])){
 <body>
     <div class="navbar">
         <div class="isinavbar">
-            <a href="../beranda.php">Home</a>
+            <a href="../index.php">Home</a>
         </div>
         <div class="isinavbar">
             <a href="../story.php">Story</a>
@@ -107,10 +101,8 @@ if(!isset($_SESSION['login'])){
         Thank you for following the story, I hope you liked the experience!
     </div>
     <br><br>
-    <button>
-        <a href="../logout.php" style="color: #f4a763; font-size: 18px;">Logout</a>
-    </button>
     
+
     <br><br><br><br><br><br><br><br>
 </body>
 </html>
